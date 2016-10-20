@@ -10,8 +10,8 @@ describe('componentsFinder', ()=>{
    it('works', () =>{
        const components = componentFinder.find(path.join(__dirname, 'sample'));
        expect(components).to.deep.equal({
-           "aComponent.js": "/Users/cashsun/Desktop/github/rehearse/test/sample/aComponent.js",
-           "component2.js": "/Users/cashsun/Desktop/github/rehearse/test/sample/common/component2.js"
+           "aComponent": "/Users/cashsun/Desktop/github/rehearse/test/sample/aComponent.js",
+           "component2": "/Users/cashsun/Desktop/github/rehearse/test/sample/common/component2.js"
        });
    })
 });
