@@ -1,0 +1,53 @@
+{
+  "name": "rehearse",
+  "version": "1.0.0",
+  "description": "developing react components in fury mode",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ./test",
+    "start": "node ./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cashsun/rehearse.git"
+  },
+  "keywords": [
+    "react",
+    "webpack",
+    "browserSync",
+    "redux",
+    "css-modules"
+  ],
+  "author": "Cash Sun",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cashsun/rehearse/issues"
+  },
+  "homepage": "https://github.com/cashsun/rehearse#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.1.0"
+  },
+  "bin": {
+    "rehearse": "./index.js"
+  },
+  "dependencies": {
+    "babel": "^6.5.2",
+    "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "browser-sync": "^2.17.0",
+    "css-loader": "^0.25.0",
+    "express": "^4.14.0",
+    "file-loader": "^0.9.0",
+    "less": "^2.7.1",
+    "less-loader": "^2.2.3",
+    "lodash": "^4.16.4",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.2"
+  }
+}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rehearse - <%= component %></title>
+    <% statics.map(function(file){ %>
+        <% if( file.type === 'css'){ %>
+            <link rel="stylesheet" type="text/css" href="/app/<%= file.href %>">
+        <% } else if (file.type === 'js') { %>
+            <script type="text/javascript" src="/app/<%= file.href %>"></script>
+        <% } %>
+    <% }) %>
+</head>
+<body>
+    <div id="viewer"></div>
+    <script type="text/javascript">
+        console.log('viewing: ', '<%= component %>');
+        window.target = '<%= component %>';
+    </script>
+    <script type="text/javascript" src="/viewer/viewer.build.js"></script>
+
+</body>
+</html>
