@@ -1,16 +1,15 @@
 /**
  * Created by cashsun on 2016/10/19.
  */
-const path = require('path');
-const webpack = require('webpack');
-const workingDir = process.cwd();
-const config = require(path.join(workingDir, 'rehearse.config.js'));
+var path = require('path');
+var workingDir = process.cwd();
+var config = require(path.join(workingDir, 'rehearse.config.js'));
 
-const webpackOverride = config.webpack || {};
-const additionalWebpackLoaders = webpackOverride.loaders || [];
-const additionalWebpackPlugins = webpackOverride.plugins || [];
+var webpackOverride = config.webpack || {};
+var additionalWebpackLoaders = webpackOverride.loaders || [];
+var additionalWebpackPlugins = webpackOverride.plugins || [];
 
-const webpackConfig = {
+var webpackConfig = {
     cache: true,
     entry: path.join(__dirname, 'viewer.js'),
     module: {

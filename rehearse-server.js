@@ -1,25 +1,25 @@
 /**
  * Created by cashsun on 2016/10/19.
  */
-const path = require('path');
-const fs = require('fs');
-const _ = require('lodash');
-const express = require('express');
-const webpack = require('webpack');
-const webpackConfig = require('./webpack.config');
-const viewerTemplte = require('./viewerTemplate');
-const browserSync = require('browser-sync').create();
-const componentsFinder = require('./componentsFinder');
-const workingDir = process.cwd();
-const config = require(path.join(workingDir, 'rehearse.config.js'));
+var path = require('path');
+var fs = require('fs');
+var _ = require('lodash');
+var express = require('express');
+var webpack = require('webpack');
+var webpackConfig = require('./webpack.config');
+var viewerTemplte = require('./viewerTemplate');
+var browserSync = require('browser-sync').create();
+var componentsFinder = require('./componentsFinder');
+var workingDir = process.cwd();
+var config = require(path.join(workingDir, 'rehearse.config.js'));
 
 //--------------------config init-------
-const statics = config.statics || [];
-const appPath = config.appPath;
-const autoOpen = config.open;
-const componentsPath = config.componentsPath;
-const props = config.props;
-const port = config.port || 9001;
+var statics = config.statics || [];
+var appPath = config.appPath;
+var autoOpen = config.open;
+var componentsPath = config.componentsPath;
+var props = config.props;
+var port = config.port || 9001;
 
 if (!Array.isArray(statics)) {
     throw new Error('rehearseConfig.statics has to be an array or leave it undefined');
@@ -37,9 +37,8 @@ if (!props) {
 }
 
 //------------------------------------------
-const components = componentsFinder.find(componentsPath);
+var components = componentsFinder.find(componentsPath);
 fs.writeFileSync(path.join(__dirname, 'viewer.js'), viewerTemplte.build(components, props));
-
 
 
 browserSync.init({
@@ -47,15 +46,15 @@ browserSync.init({
     open: autoOpen
 });
 
-const server = express();
+var server = express();
 
 if (statics.length) {
     server.use('/app', express.static(appPath));
 }
 
-let counter = 0;
+var counter = 0;
 webpack(webpackConfig, function (err, stat) {
-    if(err){
+    if (err) {
         console.error(err);
     }
     console.log(`webpack compile finished --> No.${++counter} ${new Date()}`);
@@ -70,25 +69,25 @@ server.use(function (err, req, res, next) {
 });
 
 
-function getIndexTemplate(){
-    return _.template(fs.readFileSync(path.join(__dirname, 'index.html') ,{encoding: 'utf8'}));
+function getIndexTemplate() {
+    return _.template(fs.readFileSync(path.join(__dirname, 'index.html'), { encoding: 'utf8' }));
 }
 
 server.use('/view/:component', function (req, res, next) {
-    const component = req.params.component;
+    var component = req.params.component;
     console.warn(`requesting ${component}`);
-    const resourceList = statics.map(s =>{
-       if(/\.js$/.test(s)){
-           return {type: 'js', href: s}
-       }else if(/\.css$/.test(s)){
-           return {type: 'css', href: s}
-       }else {
-           throw new Error(`unsupported statics ${s}, please note rehearse currently 
+    var resourceList = statics.map(s => {
+        if (/\.js$/.test(s)) {
+            return { type: 'js', href: s }
+        } else if (/\.css$/.test(s)) {
+            return { type: 'css', href: s }
+        } else {
+            throw new Error(`unsupported statics ${s}, please note rehearse currently 
            only support css and js as statics`);
-       }
+        }
     });
 
-    const indexTemplate = getIndexTemplate();
+    var indexTemplate = getIndexTemplate();
 
     res.send(indexTemplate({
         statics: resourceList,
@@ -100,11 +99,16 @@ server.use('*', function (req, res, next) {
 
     var indexTemplate = getIndexTemplate();
 
-    const viewerPage = indexTemplate({
+    var viewerPage = indexTemplate({
         statics: [],
         component: ''
     });
     res.send(viewerPage)
+});
+
+process.on('exit', (code) => {
+    console.log(`About to exit with code: ${code}`);
+    server.close();
 });
 
 
