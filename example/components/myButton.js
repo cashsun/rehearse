@@ -10,7 +10,7 @@ class MyButton extends PureComponent {
         return (
             <button
                 className={styles.base}
-                onClick={onClick}>{text}!!!</button>
+                onClick={onClick}>{text}</button>
         )
     }
 }

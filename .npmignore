@@ -25,7 +25,7 @@ coverage
 # node-waf configuration
 .lock-wscript
 rehearse.config.js
-demo.gif
+*.gif
 viewer.js
 viewer.build.js
 viewer.build.js.map
