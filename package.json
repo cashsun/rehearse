@@ -1,6 +1,6 @@
 {
   "name": "rehearse",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "developing react components in fury mode",
   "main": "index.js",
   "scripts": {
