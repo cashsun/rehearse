@@ -7,7 +7,7 @@ react components development in zen mode.
 
 We believe developers should purely focus on typing code.
 
-Mouse-clicking always end you right up at youtube.com.
+Mouse-clicking always ends you up right at youtube.com.
 
 Terminal window is always at the monitor you don't want it to be.
 
