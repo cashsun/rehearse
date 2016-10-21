@@ -18,14 +18,14 @@ You can also add additional loaders and webpack pluigins.
 
 
 
-1. Install as a [NPM module](https://www.npmjs.com/package/rehearse)
+Install as a [NPM module](https://www.npmjs.com/package/rehearse)
 
 ```bash
 npm i rehearse -D
 
 ```
 
-2. Configure: create a rehearse.config.js at your root folder (working dir).
+Configure: create a rehearse.config.js at your root folder (working dir).
 
 ```javascript
 const path = require('path');
@@ -52,10 +52,10 @@ const config = {
 module.exports = config;
 
 ```
-3. Run
+
+Run
 
 Add rehearse to your package.json npm scripts
-
 ```json
 {
     "scripts": {
