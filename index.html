@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Rehearse by cashsun</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Rehearse</h1>
+      <h2 class="project-tagline">React.js Development in Zen Mode</h2>
+      <a href="https://github.com/cashsun/rehearse" class="btn">View on GitHub</a>
+      <a href="https://github.com/cashsun/rehearse/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/cashsun/rehearse/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="rehearse" class="anchor" href="#rehearse" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>rehearse</h1>
+
+<p>One-stop-shop for quick-start react components development (in zen mode).</p>
+
+<p><img src="https://raw.githubusercontent.com/cashsun/rehearse/master/demo.gif" alt="alt tag"></p>
+
+<p>We believe developers should purely focus on typing code.</p>
+
+<p>Mouse-clicking is distracting.</p>
+
+<p>Terminal window is distracting.</p>
+
+<p>Let Rehearse do the compiling and browser refreshing for you.</p>
+
+<p>Currently, integrated with css-modules (less also supported), babel-react + es6 and webpack by default.
+You can also add additional loaders and webpack pluigins.</p>
+
+<p>Install as a <a href="https://www.npmjs.com/package/rehearse">NPM module</a></p>
+
+<div class="highlight highlight-source-shell"><pre>npm i rehearse -D
+</pre></div>
+
+<p>Quick start: create a rehearse.config.js at your root folder (working dir).</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">const</span> <span class="pl-c1">path</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>path<span class="pl-pds">'</span></span>);
+<span class="pl-k">const</span> <span class="pl-c1">config</span> <span class="pl-k">=</span> {
+    webpack<span class="pl-k">:</span> {
+        <span class="pl-c">//currently only support additional loaders, i.e. loaders: []</span>
+        <span class="pl-c">//or plugins , i.e. plugins: []</span>
+    },
+    props<span class="pl-k">:</span> <span class="pl-smi">path</span>.<span class="pl-c1">join</span>(<span class="pl-c1">__dirname</span>, <span class="pl-s"><span class="pl-pds">'</span>example/props.js<span class="pl-pds">'</span></span>),<span class="pl-c">//path of the props file, mandatory</span>
+
+    componentsPath<span class="pl-k">:</span> <span class="pl-smi">path</span>.<span class="pl-c1">join</span>(<span class="pl-c1">__dirname</span>, <span class="pl-s"><span class="pl-pds">'</span>example/components<span class="pl-pds">'</span></span>),<span class="pl-c">//absolute path of components, mandatory</span>
+
+    statics<span class="pl-k">:</span> [
+        <span class="pl-s"><span class="pl-pds">'</span>css/theme.css<span class="pl-pds">'</span></span>,
+        <span class="pl-s"><span class="pl-pds">'</span>js/lib.js<span class="pl-pds">'</span></span>
+    ],<span class="pl-c">//list of strings to be included in the header of rehearse page,</span>
+                <span class="pl-c">// e.g. css/bootstrap.css etc, they should be direct children of appPath</span>
+
+    appPath<span class="pl-k">:</span> <span class="pl-smi">path</span>.<span class="pl-c1">join</span>(<span class="pl-c1">__dirname</span>, <span class="pl-s"><span class="pl-pds">'</span>example<span class="pl-pds">'</span></span>), <span class="pl-c">//absolute path of client folder, mandatory if statics is not empty</span>
+    port<span class="pl-k">:</span> <span class="pl-c1">9001</span>,  <span class="pl-c">//port of the rehearse server</span>
+    open<span class="pl-k">:</span> <span class="pl-c1">true</span> <span class="pl-c">//auto open browser?</span>
+};
+
+<span class="pl-c1">module</span>.<span class="pl-smi">exports</span> <span class="pl-k">=</span> config;
+</pre></div>
+
+<p>Add rehearse to your package.json npm scripts</p>
+
+<div class="highlight highlight-source-json"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>scripts<span class="pl-pds">"</span></span>: {
+        <span class="pl-s"><span class="pl-pds">"</span>rehearse<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>rehearse<span class="pl-pds">"</span></span>
+    }
+}</pre></div>
+
+<div class="highlight highlight-source-shell"><pre>npm run rehearse</pre></div>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/cashsun/rehearse">Rehearse</a> is maintained by <a href="https://github.com/cashsun">cashsun</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
