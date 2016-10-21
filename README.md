@@ -1,7 +1,7 @@
 # rehearse
 react components development in zen mode.
 
-![Home Page](http://cashsun.github.io/rehearse/)
+[Home Page](http://cashsun.github.io/rehearse/)
 
 ![alt tag](https://raw.githubusercontent.com/cashsun/rehearse/master/demo.gif)
 
