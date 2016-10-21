@@ -1,9 +1,13 @@
 # rehearse
-One stop shop for quick start react components development (in fury mode!).
-hands free recompile/browser sync.
+One-stop-shop for quick-start react components development (in zen mode).
 
-Already integrated with css-modules, babel-react + es6 and webpack.
-Start writing react components by creating a rehearse.congig.js at your root folder.
+I believe developer should only focus on typing code, so let Rehearse do the re-compiling + refreshing browser for you.
+
+Currently, integrated with css-modules (less also supported), babel-react + es6 and webpack by default.
+You can also add additional loaders and pluigins.
+
+
+Quick start: create a rehearse.config.js at your root folder (working dir).
 
 ```javascript
 const path = require('path');
@@ -31,7 +35,7 @@ module.exports = config;
 
 ```
 
-to start the server, add rehearse in your npm scripts
+Add rehearse to your package.json npm scripts
 
 ```json
 {
@@ -39,4 +43,8 @@ to start the server, add rehearse in your npm scripts
         "rehearse": "rehearse"
     }
 }
+```
+
+```shell
+npm run rehearse
 ```

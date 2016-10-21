@@ -1,7 +1,7 @@
 {
   "name": "rehearse",
   "version": "1.0.14",
-  "description": "developing react components in fury mode",
+  "description": "Developing react components in zen mode",
   "main": "index.js",
   "scripts": {
     "w": "webpack",
