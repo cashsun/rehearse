@@ -8,7 +8,6 @@ class MyButton extends PureComponent {
     render() {
         const { text, onClick } = this.props;
         return (
-
             <button className={styles.base} onClick={onClick}>{text}</button>
         )
     }

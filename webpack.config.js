@@ -33,6 +33,9 @@ var webpackConfig = {
         ].concat(additionalWebpackLoaders)
     },
     watch: true,
+    watchOptions: {
+        poll: true
+    },
     debug: true,
     devtool: 'source-map',
     output: {
