@@ -1,7 +1,7 @@
 {
   "name": "rehearse",
-  "version": "1.0.17",
-  "description": "Developing react components in zen mode",
+  "version": "1.0.18",
+  "description": "React.js Development in Zen Mode",
   "main": "index.js",
   "scripts": {
     "w": "webpack",
@@ -33,7 +33,6 @@
     "rehearse": "./index.js"
   },
   "dependencies": {
-    "babel": "^6.5.2",
     "babel-core": "^6.7.0",
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.5.0",
