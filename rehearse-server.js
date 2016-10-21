@@ -38,7 +38,7 @@ if (!props) {
 
 //------------------------------------------
 var components = componentsFinder.find(componentsPath);
-fs.writeFileSync(webpackConfig.entry, viewerTemplte.build(components, props));
+fs.writeFileSync(webpackConfig.entry, viewerTemplte.build(components, props.replace(/\\/g, '/')));
 
 
 browserSync.init({

@@ -17,7 +17,7 @@ function findComponentsFrom(componentPath, memo) {
                 var content = fs.readFileSync(completePath, 'utf8');
                 if (/['"]react['"]/.test(content)) {
                     console.log(`Found component: ${fileOrDir}`);
-                    memo[fileOrDir.replace(jsRegex, '')] = completePath;
+                    memo[fileOrDir.replace(jsRegex, '')] = completePath.replace(/\\/g, '/');
                 }
 
             }
