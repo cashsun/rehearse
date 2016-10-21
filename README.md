@@ -4,13 +4,24 @@ One-stop-shop for quick-start react components development (in zen mode).
 ![alt tag](https://raw.githubusercontent.com/cashsun/rehearse/master/demo.gif)
 
 We believe developers should purely focus on typing code.
+
 Mouse-clicking is distracting.
+
 Terminal window is distracting.
-Let Rehearse do the compiling + refreshing browser for you.
+
+Let Rehearse do the compiling and browser refreshing for you.
 
 Currently, integrated with css-modules (less also supported), babel-react + es6 and webpack by default.
-You can also add additional loaders and pluigins.
+You can also add additional loaders and webpack pluigins.
 
+
+
+Install as a [NPM module](https://www.npmjs.com/package/rehearse)
+
+```bash
+npm i rehearse -D
+
+```
 
 Quick start: create a rehearse.config.js at your root folder (working dir).
 
@@ -50,6 +61,6 @@ Add rehearse to your package.json npm scripts
 }
 ```
 
-```shell
+```bash
 npm run rehearse
 ```
