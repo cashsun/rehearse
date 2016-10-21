@@ -1,7 +1,12 @@
 # rehearse
 One-stop-shop for quick-start react components development (in zen mode).
 
-I believe developer should only focus on typing code, so let Rehearse do the re-compiling + refreshing browser for you.
+![alt tag](https://github.com/cashsun/rehearse/master/demo.gif)
+
+We believe developers should purely focus on typing code.
+Mouse-clicking is distracting.
+Terminal window is distracting.
+Let Rehearse do the compiling + refreshing browser for you.
 
 Currently, integrated with css-modules (less also supported), babel-react + es6 and webpack by default.
 You can also add additional loaders and pluigins.

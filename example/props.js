@@ -5,6 +5,7 @@ const myButton = {
     text: 'hello world!',
     onClick:  (evt) => {
         console.log(evt)
+        console.log("I was clicked!")
     }
 };
 

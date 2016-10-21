@@ -40,6 +40,16 @@ if (!props) {
 var components = componentsFinder.find(componentsPath);
 fs.writeFileSync(webpackConfig.entry, viewerTemplte.build(components, props.replace(/\\/g, '/')));
 
+var resourceList = statics.map(s => {
+    if (/\.js$/.test(s)) {
+        return { type: 'js', href: s }
+    } else if (/\.css$/.test(s)) {
+        return { type: 'css', href: s }
+    } else {
+        throw new Error(`unsupported statics ${s}, please note rehearse currently 
+           only support css and js as statics`);
+    }
+});
 
 browserSync.init({
     proxy: "localhost:" + port,
@@ -68,26 +78,12 @@ server.use(function (err, req, res, next) {
     next(err)
 });
 
-
-function getIndexTemplate() {
-    return _.template(fs.readFileSync(path.join(__dirname, 'index.html'), { encoding: 'utf8' }));
-}
+var indexTemplate = _.template(fs.readFileSync(path.join(__dirname, 'index.html'), { encoding: 'utf8' }));
 
 server.use('/view/:component', function (req, res, next) {
     var component = req.params.component;
     console.warn(`requesting ${component}`);
-    var resourceList = statics.map(s => {
-        if (/\.js$/.test(s)) {
-            return { type: 'js', href: s }
-        } else if (/\.css$/.test(s)) {
-            return { type: 'css', href: s }
-        } else {
-            throw new Error(`unsupported statics ${s}, please note rehearse currently 
-           only support css and js as statics`);
-        }
-    });
 
-    var indexTemplate = getIndexTemplate();
 
     res.send(indexTemplate({
         statics: resourceList,
@@ -97,11 +93,10 @@ server.use('/view/:component', function (req, res, next) {
 
 server.use('*', function (req, res, next) {
 
-    var indexTemplate = getIndexTemplate();
 
     var viewerPage = indexTemplate({
-        statics: [],
-        component: ''
+        statics: resourceList,
+        component: 'un-defined'
     });
     res.send(viewerPage)
 });
