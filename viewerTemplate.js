@@ -2,7 +2,7 @@
  * Created by cashsun on 2016/10/19.
  */
 const _ = require('lodash');
-
+const current = __dirname;
 module.exports = {
     build: function (components, props) {
         const componentImports = _.map(components, function(path, componentName){
@@ -20,7 +20,7 @@ module.exports = {
             import ReactDom from 'react-dom';
             const allComponents = {};
             ${componentImports};
-            import styles from './viewer.less';
+            import styles from '${current}/viewer.less';
             import * as componentProps from '${props}';
             
             

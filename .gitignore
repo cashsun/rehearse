@@ -25,9 +25,9 @@ coverage
 # node-waf configuration
 .lock-wscript
 rehearse.config.js
-viewer.js
-viewer.build.js
-viewer.build.js.map
+rehearse-viewer.js
+rehearse-viewer.build.js
+rehearse-viewer.build.js.map
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release

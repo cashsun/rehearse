@@ -2,6 +2,7 @@
  * Created by cashsun on 2016/10/19.
  */
 var path = require('path');
+var os = require('os');
 var fs = require('fs');
 var _ = require('lodash');
 var express = require('express');
@@ -12,7 +13,6 @@ var browserSync = require('browser-sync').create();
 var componentsFinder = require('./componentsFinder');
 var workingDir = process.cwd();
 var config = require(path.join(workingDir, 'rehearse.config.js'));
-
 //--------------------config init-------
 var statics = config.statics || [];
 var appPath = config.appPath;
@@ -38,7 +38,7 @@ if (!props) {
 
 //------------------------------------------
 var components = componentsFinder.find(componentsPath);
-fs.writeFileSync(path.join(__dirname, 'viewer.js'), viewerTemplte.build(components, props));
+fs.writeFileSync(webpackConfig.entry, viewerTemplte.build(components, props));
 
 
 browserSync.init({
@@ -61,7 +61,7 @@ webpack(webpackConfig, function (err, stat) {
     browserSync.reload();
 });
 
-server.use('/viewer', express.static(__dirname));
+server.use('/viewer', express.static(webpackConfig.output.path));
 
 server.use(function (err, req, res, next) {
     res.status(500).send(err);
@@ -105,16 +105,42 @@ server.use('*', function (req, res, next) {
     });
     res.send(viewerPage)
 });
+var app;
+function handleError(){
+    app.close();
+    console.log('app closed');
+
+    var output = webpackConfig.output;
+    var filename = output.filename;
+
+    fs.unlinkSync(webpackConfig.entry);
+    fs.unlinkSync(path.join(output.path, filename));
+    fs.unlinkSync(path.join(output.path, filename + '.map'));
+    console.log('temp file removed.');
+
+    browserSync.cleanup();
+
+}
 
 process.on('exit', (code) => {
     console.log(`About to exit with code: ${code}`);
-    server.close();
+    handleError();
+});
+
+process.on('uncaughtException', (err) => {
+    console.error(`UnCaught exception: ${err}`);
+    process.exit();
+});
+
+process.on('SIGINT', () => {
+    console.error(`manual termination`);
+    process.exit();
 });
 
 
 module.exports = {
     start: function () {
         console.log('starting Rehearse server......');
-        server.listen(port);
+        app = server.listen(port);
     }
 };
