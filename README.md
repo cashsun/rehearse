@@ -7,11 +7,13 @@ react components development in zen mode.
 
 We believe developers should purely focus on typing code.
 
-Mouse-clicking is distracting.
+Mouse-clicking always end you right up at youtube.com.
 
-Terminal window is distracting.
+Terminal window is always at the monitor you don't want it to be.
 
-Let Rehearse do the compiling and browser refreshing for you.
+The code change seems not working until 10 mins later you realise you forgot to webpack.
+
+Please, let Rehearse do the compiling and browser refreshing for you.
 
 Currently, integrated with css-modules (less also supported), babel-react + es6 and webpack by default.
 You can also add additional loaders and webpack pluigins.
