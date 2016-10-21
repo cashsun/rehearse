@@ -1,5 +1,7 @@
 # rehearse
-One-stop-shop for quick-start react components development (in zen mode).
+react components development in zen mode.
+
+![Home Page](http://cashsun.github.io/rehearse/)
 
 ![alt tag](https://raw.githubusercontent.com/cashsun/rehearse/master/demo.gif)
 
