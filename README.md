@@ -1,7 +1,7 @@
 # rehearse
 One-stop-shop for quick-start react components development (in zen mode).
 
-![alt tag](https://github.com/cashsun/rehearse/master/demo.gif)
+![alt tag](https://raw.githubusercontent.com/cashsun/rehearse/master/demo.gif)
 
 We believe developers should purely focus on typing code.
 Mouse-clicking is distracting.
