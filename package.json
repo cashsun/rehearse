@@ -1,6 +1,6 @@
 {
   "name": "rehearse",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "React.js Development in Zen Mode",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,10 @@
     "webpack",
     "browserSync",
     "redux",
-    "css-modules"
+    "css-modules",
+    "less-loader",
+    "es6",
+    "babel"
   ],
   "author": "Cash Sun",
   "license": "MIT",

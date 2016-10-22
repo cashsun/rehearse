@@ -15,7 +15,7 @@ function findComponentsFrom(componentPath, memo) {
 
             if (jsRegex.test(fileOrDir)) {
                 var content = fs.readFileSync(completePath, 'utf8');
-                if (/['"]react['"]/.test(content)) {
+                if (/['"]react['"]/.test(content) && /(createClass)|(extends.*Component)/.test(content)) {
                     console.log(`Found component: ${fileOrDir}`);
                     memo[fileOrDir.replace(jsRegex, '')] = completePath.replace(/\\/g, '/');
                 }
