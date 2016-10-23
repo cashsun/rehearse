@@ -6,10 +6,11 @@ var os = require('os');
 var fs = require('fs');
 var _ = require('lodash');
 var express = require('express');
+var browserSync = require('browser-sync').create();
 var webpack = require('webpack');
+var webpackDevServer = require('webpack-dev-server');
 var webpackConfig = require('./webpack.config');
 var viewerTemplte = require('./viewerTemplate');
-var browserSync = require('browser-sync').create();
 var componentsFinder = require('./componentsFinder');
 var workingDir = process.cwd();
 var config = require(path.join(workingDir, 'rehearse.config.js'));
@@ -20,6 +21,8 @@ var autoOpen = config.open;
 var componentsPath = config.componentsPath;
 var props = config.props;
 var port = config.port || 9001;
+var localhost = `http://localhost:${port}/`;
+webpackConfig.entry.unshift(`webpack-dev-server/client?${localhost}`);
 
 if (!Array.isArray(statics)) {
     throw new Error('rehearseConfig.statics has to be an array or leave it undefined');
@@ -37,8 +40,9 @@ if (!props) {
 }
 
 //------------------------------------------
+var entryFile = webpackConfig.entry[2];
 var components = componentsFinder.find(componentsPath);
-fs.writeFileSync(webpackConfig.entry, viewerTemplte.build(components, props.replace(/\\/g, '/')));
+fs.writeFileSync(entryFile, viewerTemplte.build(components, props.replace(/\\/g, '/')));
 
 var resourceList = statics.map(s => {
     if (/\.js$/.test(s)) {
@@ -50,69 +54,64 @@ var resourceList = statics.map(s => {
            only support css and js as statics`);
     }
 });
+var indexTemplate = _.template(fs.readFileSync(path.join(__dirname, 'indexTemplate.html'), { encoding: 'utf8' }));
 
 browserSync.init({
-    proxy: "localhost:" + port,
+    proxy: localhost,
     open: autoOpen
 });
 
-var server = express();
+browserSync.watch(config.props).on('change', browserSync.reload);
 
-if (statics.length) {
-    server.use('/app', express.static(appPath));
-}
+var compiler = webpack(webpackConfig);
 
-var counter = 0;
-webpack(webpackConfig, function (err, stat) {
-    if (err) {
-        console.error(err);
+var devServer = new webpackDevServer(compiler, {
+    hot: true,
+    stats: { colors: true },
+    publicPath: webpackConfig.output.publicPath,
+    historyApiFallback: true,
+    watchOptions: {
+        poll: 500
+    },
+    setup: function (server) {
+        console.log('setting up................');
+
+        if (statics.length) {
+            server.use('/app', express.static(appPath));
+        }
+
+        server.use(function (err, req, res, next) {
+            res.status(500).send(err);
+            next(err)
+        });
+
+
+        server.use('/view/:component', function (req, res, next) {
+            var component = req.params.component;
+            console.warn(`requesting ${component}`);
+
+
+            res.send(indexTemplate({
+                statics: resourceList,
+                component
+            }))
+        });
+
+        server.use('/all', function (req, res, next) {
+            var viewerPage = indexTemplate({
+                statics: resourceList,
+                component: 'un-defined'
+            });
+            res.send(viewerPage)
+        });
     }
-    console.log(`webpack compile finished --> No.${++counter} ${new Date()}`);
-    browserSync.reload();
 });
-
-server.use('/viewer', express.static(webpackConfig.output.path));
-
-server.use(function (err, req, res, next) {
-    res.status(500).send(err);
-    next(err)
-});
-
-var indexTemplate = _.template(fs.readFileSync(path.join(__dirname, 'index.html'), { encoding: 'utf8' }));
-
-server.use('/view/:component', function (req, res, next) {
-    var component = req.params.component;
-    console.warn(`requesting ${component}`);
-
-
-    res.send(indexTemplate({
-        statics: resourceList,
-        component
-    }))
-});
-
-server.use('*', function (req, res, next) {
-
-
-    var viewerPage = indexTemplate({
-        statics: resourceList,
-        component: 'un-defined'
-    });
-    res.send(viewerPage)
-});
-var app;
-function handleError(){
-    app.close();
+function handleError() {
+    devServer.close();
     console.log('app closed');
 
-    var output = webpackConfig.output;
-    var filename = output.filename;
-
-    fs.unlinkSync(webpackConfig.entry);
-    fs.unlinkSync(path.join(output.path, filename));
-    fs.unlinkSync(path.join(output.path, filename + '.map'));
+    fs.unlinkSync(entryFile);
     console.log('temp file removed.');
-
     browserSync.cleanup();
 
 }
@@ -136,6 +135,6 @@ process.on('SIGINT', () => {
 module.exports = {
     start: function () {
         console.log('starting Rehearse server......');
-        app = server.listen(port);
+        devServer.listen(port);
     }
 };

@@ -1,23 +1,18 @@
 # rehearse
-react components development in zen mode.
+live react components development in zen mode.
 
 [Home Page](http://cashsun.github.io/rehearse/)
 
 ![alt tag](https://raw.githubusercontent.com/cashsun/rehearse/master/demo.gif)
 
-We believe developers should purely focus on typing code.
+React live editing (a.k.a hot reload) made easy
 
-Mouse-clicking always ends you up right at youtube.com.
+Components updates on live editing js, stylesheets or props -> Let Rehearse do the compiling and browser refreshing for you.
 
-Terminal window is always at the monitor you don't want it to be.
 
-The code change seems not working until 10 mins later you realise you forgot to webpack.
+Currently integrated with react-hot-reload, css-modules (less supported), babel(react + es6) and webpack-dev-server HMR by default.
 
-Please, let Rehearse do the compiling and browser refreshing for you.
-
-Currently, integrated with css-modules (less also supported), babel-react + es6 and webpack by default.
-You can also add additional loaders and webpack pluigins.
-
+You can also add additional loaders and webpack plugins.
 
 
 Install as a [NPM module](https://www.npmjs.com/package/rehearse)
@@ -48,7 +43,6 @@ const config = {
 
     appPath: path.join(__dirname, 'example'), //absolute path of client folder, mandatory if statics is not empty
     port: 9001,  //port of the rehearse server
-    open: true //auto open browser?
 };
 
 module.exports = config;

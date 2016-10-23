@@ -3,6 +3,7 @@
  */
 var path = require('path');
 var os = require('os');
+var webpack = require('webpack');
 var tmpdir = os.tmpdir();
 console.log('tmpdir', tmpdir);
 var workingDir = process.cwd();
@@ -14,17 +15,16 @@ var additionalWebpackPlugins = webpackOverride.plugins || [];
 
 var webpackConfig = {
     cache: true,
-    entry: path.join(workingDir, `${VIEWER}.js`),
+    entry: [
+        'webpack/hot/only-dev-server',
+        path.join(workingDir, `${VIEWER}.js`)
+    ],
     module: {
         loaders: [
             {
                 test: /\.js$/,
-                loader: 'babel-loader',
                 exclude: /(node_modules)/,
-                query: {
-                    cacheDirectory: true,
-                    presets: ['react', 'es2015']
-                }
+                loaders: ['react-hot', 'babel-loader?cacheDirectory=true']
             },
             {
                 test: /\.less$/,
@@ -32,18 +32,15 @@ var webpackConfig = {
             }
         ].concat(additionalWebpackLoaders)
     },
-    watch: true,
-    watchOptions: {
-        poll: true
-    },
-    debug: true,
     devtool: 'source-map',
     output: {
-        filename: VIEWER + '.build.js',
-        path: path.resolve(tmpdir),
-        publicPath: '/viewer'
+        filename: `${VIEWER}.build.js`,
+        publicPath: '/viewer',
+        path: path.resolve(tmpdir)
     },
-    plugins: [].concat(additionalWebpackPlugins)
+    plugins: [
+        new webpack.HotModuleReplacementPlugin()
+    ].concat(additionalWebpackPlugins)
 };
 
 module.exports = webpackConfig;
