@@ -22,27 +22,26 @@
       <h1>
 <a id="rehearse" class="anchor" href="#rehearse" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>rehearse</h1>
 
-<p>One-stop-shop for quick-start react components development (in zen mode).</p>
+<p>live editing/ hot reloading react components in zen mode.</p>
+
+<p><a href="http://cashsun.github.io/rehearse/">Home Page</a></p>
 
 <p><img src="https://raw.githubusercontent.com/cashsun/rehearse/master/demo.gif" alt="alt tag"></p>
 
-<p>We believe developers should purely focus on typing code.</p>
+<p>React live editing (a.k.a hot reload) made easy</p>
 
-<p>Mouse-clicking is distracting.</p>
+<p>Components updates on live editing js, stylesheets or props -&gt; Let Rehearse do the compiling and browser refreshing for you.</p>
 
-<p>Terminal window is distracting.</p>
+<p>Currently integrated with react-hot-reload, css-modules (less supported), babel(react + es6) and webpack-dev-server HMR by default.</p>
 
-<p>Let Rehearse do the compiling and browser refreshing for you.</p>
-
-<p>Currently, integrated with css-modules (less also supported), babel-react + es6 and webpack by default.
-You can also add additional loaders and webpack pluigins.</p>
+<p>You can also add additional loaders and webpack plugins.</p>
 
 <p>Install as a <a href="https://www.npmjs.com/package/rehearse">NPM module</a></p>
 
 <div class="highlight highlight-source-shell"><pre>npm i rehearse -D
 </pre></div>
 
-<p>Quick start: create a rehearse.config.js at your root folder (working dir).</p>
+<p>Configure: create a rehearse.config.js at your root folder (working dir).</p>
 
 <div class="highlight highlight-source-js"><pre><span class="pl-k">const</span> <span class="pl-c1">path</span> <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>path<span class="pl-pds">'</span></span>);
 <span class="pl-k">const</span> <span class="pl-c1">config</span> <span class="pl-k">=</span> {
@@ -62,11 +61,12 @@ You can also add additional loaders and webpack pluigins.</p>
 
     appPath<span class="pl-k">:</span> <span class="pl-smi">path</span>.<span class="pl-c1">join</span>(<span class="pl-c1">__dirname</span>, <span class="pl-s"><span class="pl-pds">'</span>example<span class="pl-pds">'</span></span>), <span class="pl-c">//absolute path of client folder, mandatory if statics is not empty</span>
     port<span class="pl-k">:</span> <span class="pl-c1">9001</span>,  <span class="pl-c">//port of the rehearse server</span>
-    open<span class="pl-k">:</span> <span class="pl-c1">true</span> <span class="pl-c">//auto open browser?</span>
 };
 
 <span class="pl-c1">module</span>.<span class="pl-smi">exports</span> <span class="pl-k">=</span> config;
 </pre></div>
+
+<p>Run</p>
 
 <p>Add rehearse to your package.json npm scripts</p>
 
