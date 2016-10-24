@@ -32,7 +32,7 @@ var webpackConfig = {
             }
         ].concat(additionalWebpackLoaders)
     },
-    devtool: 'source-map',
+    devtool: webpackOverride.devtool || 'eval',
     output: {
         filename: `${VIEWER}.build.js`,
         publicPath: '/viewer',

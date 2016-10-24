@@ -29,7 +29,8 @@ const path = require('path');
 const config = {
     webpack: {
         //currently only support additional loaders, i.e. loaders: []
-        //or plugins , i.e. plugins: []
+        //or additional plugins , i.e. plugins: []
+        //or devtool i.e. devtool: 'source-map',  default:'eval'
     },
     props: path.join(__dirname, 'example/props.js'),//path of the props file, mandatory
 

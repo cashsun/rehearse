@@ -61,21 +61,33 @@ browserSync.init({
     open: autoOpen
 });
 
-browserSync.watch(config.props).on('change', ()=>{
-    compiler.run(()=>{
-        browserSync.reload();
-    })
-});
+var propsCompiler = webpack(_.extend({}, webpackConfig, {
+    entry: config.props
+}));
+
+
+propsCompiler.watch({
+        poll: 500
+    },
+    (err, stats)=> {
+        if (err) {
+            return console.log(err);
+        }
+        compiler.run(()=> {
+            browserSync.reload();
+        })
+    });
 
 var compiler = webpack(webpackConfig);
 var devServer = new webpackDevServer(compiler, {
     hot: true,
     stats: { colors: true },
+    contentBase: __dirname,
     publicPath: webpackConfig.output.publicPath,
     watchOptions: {
         poll: 500
     },
-    reporter: function(stats){},
+    reporter: function (stats) {},
     setup: function (server) {
         console.log('setting up dev server..........');
 
