@@ -69,9 +69,12 @@ npm run rehearse
 Ready to go!
 
 
-A Few Gotchas:
+Q&A:
+
 **No auto refresh when change props.js?**
+
 please pay attention that the page you should visit should be browser-synced one, usually localhost:3000 (shown in console within browser-sync log)
 
 **No props found even though I have added them in props.js?**
+
 Please make sure props are named the same as the component **file** name.
