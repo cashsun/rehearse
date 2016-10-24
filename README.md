@@ -5,14 +5,16 @@ live react components development in zen mode.
 
 ![alt tag](https://raw.githubusercontent.com/cashsun/rehearse/master/demo.gif)
 
-React live editing (a.k.a hot reload) made easy
+React live editing (a.k.a hot reload) made easy -> Let Rehearse do the compiling and browser refreshing for you.
 
-Components updates on live editing js, stylesheets or props -> Let Rehearse do the compiling and browser refreshing for you.
+★ hot reload on css/less change
+★ hot reload on react component change
+★ hot reload on props change
+★ isolated or interdependent props
+★ babel react + es6
+★ auto find all components in configured folder
+★ customise addtional loaders and plugins
 
-
-Currently integrated with react-hot-reload, css-modules (less supported), babel(react + es6) and webpack-dev-server HMR by default.
-
-You can also add additional loaders and webpack plugins.
 
 
 Install as a [NPM module](https://www.npmjs.com/package/rehearse)
