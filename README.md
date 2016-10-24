@@ -8,11 +8,17 @@ live react components development in zen mode.
 React live editing (a.k.a hot reload) made easy -> Let Rehearse do the compiling and browser refreshing for you.
 
 ★ hot reload on css/less change
+
 ★ hot reload on react component change
+
 ★ hot reload on props change
+
 ★ isolated or interdependent props
+
 ★ babel react + es6
+
 ★ auto find all components in configured folder
+
 ★ customise addtional loaders and plugins
 
 
