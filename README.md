@@ -43,6 +43,7 @@ const config = {
 
     appPath: path.join(__dirname, 'example'), //absolute path of client folder, mandatory if statics is not empty
     port: 9001,  //port of the rehearse server
+    open: true //auto open browser on start?
 };
 
 module.exports = config;
