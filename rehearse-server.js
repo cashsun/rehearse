@@ -61,20 +61,23 @@ browserSync.init({
     open: autoOpen
 });
 
-browserSync.watch(config.props).on('change', browserSync.reload);
+browserSync.watch(config.props).on('change', ()=>{
+    compiler.run(()=>{
+        browserSync.reload();
+    })
+});
 
 var compiler = webpack(webpackConfig);
-
 var devServer = new webpackDevServer(compiler, {
     hot: true,
     stats: { colors: true },
     publicPath: webpackConfig.output.publicPath,
-    historyApiFallback: true,
     watchOptions: {
         poll: 500
     },
+    reporter: function(stats){},
     setup: function (server) {
-        console.log('setting up................');
+        console.log('setting up dev server..........');
 
         if (statics.length) {
             server.use('/app', express.static(appPath));
