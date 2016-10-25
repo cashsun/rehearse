@@ -5,14 +5,22 @@ live react components development in zen mode.
 
 ![alt tag](https://raw.githubusercontent.com/cashsun/rehearse/master/demo.gif)
 
-React live editing (a.k.a hot reload) made easy
+React live editing (a.k.a hot reload) made easy -> Let Rehearse do the compiling and browser refreshing for you.
 
-Components updates on live editing js, stylesheets or props -> Let Rehearse do the compiling and browser refreshing for you.
+★ hot reload on css/less change
 
+★ hot reload on react component change
 
-Currently integrated with react-hot-reload, css-modules (less supported), babel(react + es6) and webpack-dev-server HMR by default.
+★ hot reload on props change
 
-You can also add additional loaders and webpack plugins.
+★ isolated or interdependent props
+
+★ babel react + es6
+
+★ auto find all components in configured folder
+
+★ customise addtional loaders and plugins
+
 
 
 Install as a [NPM module](https://www.npmjs.com/package/rehearse)
@@ -74,7 +82,7 @@ Q&A:
 
 **No auto refresh when change props.js?**
 
-please pay attention that the page you should visit should be browser-synced one, usually localhost:3000 (shown in console within browser-sync log)
+Please pay attention that the page you should visit is browser-synced one, usually localhost:3000 (shown in console within browser-sync log)
 
 **No props found even though I have added them in props.js?**
 
