@@ -2,15 +2,15 @@
  * Created by cashsun on 2016/10/19.
  */
 var path = require('path');
-var os = require('os');
 var fs = require('fs');
 var _ = require('lodash');
+var getIndexTemplate = require('./rehearseTemplates');
 var express = require('express');
-var browserSync = require('browser-sync').create();
+var rehearseSync = require('./rehearseBrowserSync');
 var webpack = require('webpack');
 var webpackDevServer = require('webpack-dev-server');
 var webpackConfig = require('./webpack.config');
-var viewerTemplte = require('./viewerTemplate');
+var rehearseTemplates = require('./rehearseTemplates');
 var componentsFinder = require('./componentsFinder');
 var workingDir = process.cwd();
 var config = require(path.join(workingDir, 'rehearse.config.js'));
@@ -21,7 +21,8 @@ var autoOpen = config.open;
 var componentsPath = config.componentsPath;
 var props = config.props;
 var port = config.port || 9001;
-var localhost = `http://localhost:${port}/`;
+var devServerPort = (config.webpack && config.webpack.port) || 3000;
+var localhost = `http://localhost:${devServerPort}/`;
 webpackConfig.entry.unshift(`webpack-dev-server/client?${localhost}`);
 
 if (!Array.isArray(statics)) {
@@ -42,7 +43,7 @@ if (!props) {
 //------------------------------------------
 var entryFile = webpackConfig.entry[2];
 var components = componentsFinder.find(componentsPath);
-fs.writeFileSync(entryFile, viewerTemplte.build(components, props.replace(/\\/g, '/')));
+rehearseTemplates.buildViewerPage(entryFile, components, props);
 
 var resourceList = statics.map(s => {
     if (/\.js$/.test(s)) {
@@ -54,31 +55,15 @@ var resourceList = statics.map(s => {
            only support css and js as statics`);
     }
 });
-var indexTemplate = _.template(fs.readFileSync(path.join(__dirname, 'indexTemplate.html'), { encoding: 'utf8' }));
 
-browserSync.init({
+const syncOpts = {
     proxy: localhost,
-    open: autoOpen
-});
-
-var propsCompiler = webpack(_.extend({}, webpackConfig, {
-    entry: config.props
-}));
-
-
-propsCompiler.watch({
-        poll: 500
-    },
-    (err, stats)=> {
-        if (err) {
-            return console.log(err);
-        }
-        compiler.run(()=> {
-            browserSync.reload();
-        })
-    });
+    open: autoOpen,
+    port
+};
 
 var compiler = webpack(webpackConfig);
+var syncServer = rehearseSync(compiler, syncOpts, props, statics.map(s => path.join(appPath, s))).run();
 var devServer = new webpackDevServer(compiler, {
     hot: true,
     stats: { colors: true },
@@ -87,7 +72,9 @@ var devServer = new webpackDevServer(compiler, {
     watchOptions: {
         poll: 500
     },
-    reporter: function (stats) {},
+    reporter: function (stats) {
+        console.log('compile finished.');
+    },
     setup: function (server) {
         console.log('setting up dev server..........');
 
@@ -104,30 +91,20 @@ var devServer = new webpackDevServer(compiler, {
         server.use('/view/:component', function (req, res, next) {
             var component = req.params.component;
             console.warn(`requesting ${component}`);
-
-
-            res.send(indexTemplate({
-                statics: resourceList,
-                component
-            }))
+            res.send(rehearseTemplates.getIndex(resourceList, component))
         });
 
         server.use('/all', function (req, res, next) {
-            var viewerPage = indexTemplate({
-                statics: resourceList,
-                component: 'un-defined'
-            });
-            res.send(viewerPage)
+            res.send(rehearseTemplates.getIndex(resourceList,'un-defined'))
         });
     }
 });
 function handleError() {
     devServer.close();
+    syncServer.cleanup();
     console.log('app closed');
-
     fs.unlinkSync(entryFile);
     console.log('temp file removed.');
-    browserSync.cleanup();
 
 }
 
@@ -149,7 +126,7 @@ process.on('SIGINT', () => {
 
 module.exports = {
     start: function () {
-        console.log('starting Rehearse server......');
-        devServer.listen(port);
+        console.log(`starting Rehearse server at port: ${devServerPort}......`);
+        devServer.listen(devServerPort);
     }
 };
