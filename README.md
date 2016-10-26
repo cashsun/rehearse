@@ -80,6 +80,10 @@ Ready to go!
 
 Q&A:
 
+**How to setup props and scenarios?**
+
+This [example](https://github.com/cashsun/rehearse/blob/master/example/props/props.js) demos how to setup default props and scenario props.
+
 **No auto refresh when change props.js?**
 
 Please pay attention that the page you should visit is browser-synced one, usually localhost:3000 (shown in console within browser-sync log)
