@@ -86,8 +86,8 @@ This [example](https://github.com/cashsun/rehearse/blob/master/example/props/pro
 
 **No auto refresh when change props.js?**
 
-Please pay attention that the page you should visit is browser-synced one, usually localhost:3000 (shown in console within browser-sync log)
+Please pay attention that the page you should visit is browser-synced one, usually localhost:3000 as logged in your console(root level config port).
 
 **No props found even though I have added them in props.js?**
 
-Please make sure props are named the same as the component **file** name.
+Please make sure props are named export, names of which are the same as the component **FILE** name.
