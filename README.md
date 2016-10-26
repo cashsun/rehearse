@@ -40,7 +40,8 @@ const config = {
     webpack: {
         //currently only support additional loaders, i.e. loaders: []
         //or additional plugins , i.e. plugins: []
-        //or devtool i.e. devtool: 'source-map',  default:'eval'
+        //or devtool:string i.e. devtool: 'source-map',  default:'eval'
+        //or port:number for the server,  default:3000
     },
     props: path.join(__dirname, 'example/props.js'),//path of the props file, mandatory
 
