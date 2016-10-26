@@ -30,21 +30,23 @@
 
 <p>React live editing (a.k.a hot reload) made easy -&gt; Let Rehearse do the compiling and browser refreshing for you.</p>
 
-<p>★ hot reload on css/less change</p>
+<p>★ Hot reload on css/less change</p>
 
-<p>★ hot reload on react component change</p>
+<p>★ Hot reload on react component change</p>
 
-<p>★ hot reload on props change</p>
+<p>★ Hot reload on props/scenario change</p>
 
-<p>★ isolated or interdependent props</p>
+<p>★ Scenario supported</p>
 
-<p>★ babel react + es6</p>
+<p>★ Isolated or interdependent props</p>
 
-<p>★ auto find all components in configured folder</p>
+<p>★ Babel React + Es6</p>
 
-<p>★ customise addtional loaders and plugins</p>
+<p>★ Auto find all components in configured folder</p>
 
-<p>Install as a <a href="https://www.npmjs.com/package/rehearse">NPM module</a></p>
+<p>★ Customise addtional loaders and plugins and more</p>
+
+<p>Install as a <a href="https://www.npmjs.com/package/rehearse">npm module</a></p>
 
 <div class="highlight highlight-source-shell"><pre>npm i rehearse -D
 </pre></div>
@@ -56,7 +58,8 @@
     webpack<span class="pl-k">:</span> {
         <span class="pl-c">//currently only support additional loaders, i.e. loaders: []</span>
         <span class="pl-c">//or additional plugins , i.e. plugins: []</span>
-        <span class="pl-c">//or devtool i.e. devtool: 'source-map',  default:'eval'</span>
+        <span class="pl-c">//or devtool:string i.e. devtool: 'source-map',  default:'eval'</span>
+        <span class="pl-c">//or port:number for the server,  default:3000</span>
     },
     props<span class="pl-k">:</span> <span class="pl-smi">path</span>.<span class="pl-c1">join</span>(<span class="pl-c1">__dirname</span>, <span class="pl-s"><span class="pl-pds">'</span>example/props.js<span class="pl-pds">'</span></span>),<span class="pl-c">//path of the props file, mandatory</span>
 
@@ -96,7 +99,7 @@
 
 <p><strong>How to setup props and scenarios?</strong></p>
 
-<p>This <a href="https://github.com/cashsun/rehearse/blob/master/example/props/props.js">example</a> demos how to setup default props and scenario props.</p>
+<p>This <a href="https://github.com/cashsun/rehearse/blob/master/example/props/props.js">example</a> demos how to setup default props and scenarios.</p>
 
 <p><strong>No auto refresh when change props.js?</strong></p>
 
