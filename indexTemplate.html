@@ -14,8 +14,9 @@
 <body>
     <div id="viewer"></div>
     <script type="text/javascript">
-        console.log('viewing: ', '<%= component %>');
+        console.log('viewing: ', '<%= component %>', '(<%= scenario %>)');
         window.target = '<%= component %>';
+        window.scenario = '<%= scenario %>';
     </script>
     <script type="text/javascript" src="/viewer/rehearse-viewer.build.js"></script>
 

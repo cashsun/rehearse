@@ -6,10 +6,12 @@ import MyButton from './myButton';
 
 class ButtonContainer extends PureComponent {
     render() {
-        return (<div>
-            <h2>Please dont click the button:</h2>
-            <MyButton {...this.props} />
-                <MyButton {...this.props} />
+        const { title, text, onClick } = this.props;
+        return (
+            <div>
+                <h2>{title}</h2>
+                <MyButton {...{ text, onClick }} />
+                <MyButton {...{ text, onClick }} />
             </div>
         )
     }

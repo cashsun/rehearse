@@ -87,15 +87,15 @@ var devServer = new webpackDevServer(compiler, {
             next(err)
         });
 
-
-        server.use('/view/:component', function (req, res, next) {
+        server.use('/view/:component/:scenario?', function (req, res, next) {
             var component = req.params.component;
-            console.warn(`requesting ${component}`);
-            res.send(rehearseTemplates.getIndex(resourceList, component))
+            var scenario = req.params.scenario || '';
+            console.warn(`requesting ${component} (${scenario || 'default'})`);
+            res.send(rehearseTemplates.getIndex(resourceList, component, scenario));
         });
 
         server.use('/all', function (req, res, next) {
-            res.send(rehearseTemplates.getIndex(resourceList,'un-defined'))
+            res.send(rehearseTemplates.getIndex(resourceList))
         });
     }
 });
