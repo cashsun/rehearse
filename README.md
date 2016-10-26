@@ -7,23 +7,25 @@ live react components development in zen mode.
 
 React live editing (a.k.a hot reload) made easy -> Let Rehearse do the compiling and browser refreshing for you.
 
-★ hot reload on css/less change
+★ Hot reload on css/less change
 
-★ hot reload on react component change
+★ Hot reload on react component change
 
-★ hot reload on props change
+★ Hot reload on props/scenario change
 
-★ isolated or interdependent props
+★ Scenario supported
 
-★ babel react + es6
+★ Isolated or interdependent props
 
-★ auto find all components in configured folder
+★ Babel React + Es6
 
-★ customise addtional loaders and plugins
+★ Auto find all components in configured folder
+
+★ Customise addtional loaders and plugins and more
 
 
 
-Install as a [NPM module](https://www.npmjs.com/package/rehearse)
+Install as a [npm module](https://www.npmjs.com/package/rehearse)
 
 ```bash
 npm i rehearse -D
@@ -82,11 +84,13 @@ Q&A:
 
 **How to setup props and scenarios?**
 
-This [example](https://github.com/cashsun/rehearse/blob/master/example/props/props.js) demos how to setup default props and scenario props.
+This [example](https://github.com/cashsun/rehearse/blob/master/example/props/props.js) demos how to setup default props and scenarios.
+
 
 **No auto refresh when change props.js?**
 
 Please pay attention that the page you should visit is browser-synced one, usually localhost:3000 as logged in your console(root level config port).
+
 
 **No props found even though I have added them in props.js?**
 
