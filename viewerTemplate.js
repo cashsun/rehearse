@@ -29,7 +29,7 @@ module.exports = {
                 const regex = new RegExp('^'+componentName)
                 const match = RegExp.prototype.test.bind(regex);
                 return allProps.filter(match).map((scenarioProp, key )=> {
-                    const scenario = scenarioProp.replace(regex, '');
+                    const scenario = scenarioProp.replace(regex, '').replace('$', '');
                     const scenarioDisplay = scenario || 'default';
                     return (<span key={key} className={styles.scenario}>
                         <a href={'/view/'+componentName+'/'+scenario} >{componentName + ' ('+scenarioDisplay+')'}</a>
@@ -42,7 +42,7 @@ module.exports = {
                         </a>
                     </span>),
                     (<span key="back-to-all" className={styles.scenario}>
-                        <a target="_blank" href='/all' >
+                        <a href='/all' >
                         {'<< '}back to list
                         </a>
                     </span>)
@@ -64,7 +64,7 @@ module.exports = {
                         )
                     }
                     
-                    let targetProps = componentProps[window.target + window.scenario];
+                    let targetProps = componentProps[window.target + (window.scenario&&'$'+window.scenario ||'')];
                     if(!targetProps) {
                         return (
                             <div>
@@ -98,7 +98,6 @@ module.exports = {
             }
             
             ReactDom.render(<Viewer />, document.getElementById('viewer'));
-
 
             `;
     }

@@ -15,6 +15,12 @@ var additionalWebpackPlugins = webpackOverride.plugins || [];
 
 var webpackConfig = {
     cache: true,
+    resolve: {
+        root: [
+            path.join(__dirname, 'node_modules'),
+            path.resolve(workingDir)
+        ]
+    },
     entry: [
         'webpack/hot/only-dev-server',
         path.join(workingDir, `${VIEWER}.js`)
