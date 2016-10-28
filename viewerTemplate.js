@@ -26,10 +26,10 @@ module.exports = {
             const allProps = _.keys(componentProps);
             
             function scenariosLinks(componentName){
-                const regex = new RegExp('^'+componentName)
+                const regex = new RegExp('^'+componentName + '(\\\\$.*)?$')
                 const match = RegExp.prototype.test.bind(regex);
                 return allProps.filter(match).map((scenarioProp, key )=> {
-                    const scenario = scenarioProp.replace(regex, '').replace('$', '');
+                    const scenario = scenarioProp.replace(componentName, '').replace('$', '');
                     const scenarioDisplay = scenario || 'default';
                     return (<span key={key} className={styles.scenario}>
                         <a href={'/view/'+componentName+'/'+scenario} >{componentName + ' ('+scenarioDisplay+')'}</a>
@@ -49,7 +49,7 @@ module.exports = {
                 ]);
             }
 
-            class Viewer extends PureComponent {
+            export default class Viewer extends PureComponent {
             
                 render(){
                     let targetComponent = allComponents[window.target];

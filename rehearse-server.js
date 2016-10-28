@@ -63,7 +63,7 @@ const syncOpts = {
 };
 
 var compiler = webpack(webpackConfig);
-var syncServer = rehearseSync(compiler, syncOpts, props, statics.map(s => path.join(appPath, s))).run();
+var syncServer = rehearseSync(compiler, syncOpts, props, statics.map(s => path.join(appPath, s)));
 var devServer = new webpackDevServer(compiler, {
     hot: true,
     stats: { colors: true },
@@ -128,5 +128,6 @@ module.exports = {
     start: function () {
         console.log(`starting Rehearse server at port: ${devServerPort}......`);
         devServer.listen(devServerPort);
+        syncServer.run();
     }
 };

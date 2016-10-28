@@ -2,10 +2,11 @@ var fs = require('fs');
 var _ = require('lodash');
 var path = require('path');
 var viewerTemplate = require('./viewerTemplate');
+const template = _.template(fs.readFileSync(path.join(__dirname, 'indexTemplate.html'), { encoding: 'utf8' }));
 
 module.exports = {
     getIndex: function (statics = [], component = 'un-defined', scenario = '') {
-        return _.template(fs.readFileSync(path.join(__dirname, 'indexTemplate.html'), { encoding: 'utf8' }))({
+        return template({
             statics,
             component,
             scenario

@@ -17,17 +17,22 @@ module.exports = function (compiler, config, props, statics) {
             });
 
 
-
+            var running = false;
             propsCompiler.watch({
                     poll: 500
                 },
                 (err, stats)=> {
+
                     if (err) {
                         return console.log(err);
                     }
-                    compiler.run(()=> {
-                        browserSync.reload();
-                    })
+
+                    if(running){
+                        compiler.run(()=> {
+                            browserSync.reload();
+                        })
+                    }
+                    running = true;
                 });
 
             return browserSync;
