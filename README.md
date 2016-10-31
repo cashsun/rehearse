@@ -13,6 +13,8 @@ React live editing (a.k.a hot reload) made easy -> Let Rehearse do the compiling
 
 ★ Hot reload on props/scenario change
 
+★ Auto Refresh on functional/pure component change
+
 ★ Scenario supported
 
 ★ Isolated or interdependent props
