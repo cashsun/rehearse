@@ -2,7 +2,7 @@
  * Created by cashsun on 2016/10/19.
  */
 const _ = require('lodash');
-const current = __dirname;
+const current = __dirname.replace(/\\/g, '/');
 module.exports = {
     build: function (components, props) {
         const componentImports = _.map(components, function (path, componentName) {
