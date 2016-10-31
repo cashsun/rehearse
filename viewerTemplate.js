@@ -14,7 +14,7 @@ module.exports = {
             import React from 'react';
             import _ from 'lodash';
             import ReactDom from 'react-dom';
-            import $Viewer from '${current}/viewer.js'
+            import Viewer from '${current}/viewer.js'
             const allComponents = {};
             ${componentImports};
             import * as componentProps from '${props}';
@@ -26,12 +26,12 @@ module.exports = {
                 scenario:window.scenario
             };
             
-            export default $Viewer;
+            export default Viewer;
             export {viewerProps}
             
             
             
-            ReactDom.render(<$Viewer 
+            ReactDom.render(<Viewer 
                     {...viewerProps}
                 />, document.getElementById('viewer'));
 

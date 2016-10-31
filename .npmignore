@@ -26,7 +26,6 @@ coverage
 .lock-wscript
 rehearse.config.js
 *.gif
-viewer.js
 viewer.build.js
 viewer.build.js.map
 
