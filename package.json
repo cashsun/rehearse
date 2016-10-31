@@ -1,6 +1,6 @@
 {
   "name": "rehearse",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "description": "React.js Live Development in Zen Mode",
   "main": "index.js",
   "scripts": {

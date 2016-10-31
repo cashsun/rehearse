@@ -26,14 +26,13 @@ module.exports = {
                 scenario:window.scenario
             };
             
-            export default Viewer;
-            export {viewerProps}
-            
-            
-            
             ReactDom.render(<Viewer 
                     {...viewerProps}
                 />, document.getElementById('viewer'));
+
+
+            export default Viewer;
+            export {viewerProps}
 
             `;
     }
