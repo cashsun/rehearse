@@ -5,7 +5,12 @@ var viewerTemplate = require('./viewerTemplate');
 const template = _.template(fs.readFileSync(path.join(__dirname, 'indexTemplate.html'), { encoding: 'utf8' }));
 
 module.exports = {
-    getIndex: function (statics = [], component = 'un-defined', scenario = '') {
+    getIndex: function (statics, component, scenario) {
+
+        statics = statics || [];
+        component = component || 'un-defined';
+        scenario = scenario || '';
+
         return template({
             statics,
             component,
