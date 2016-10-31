@@ -63,7 +63,9 @@ const syncOpts = {
 };
 
 var compiler = webpack(webpackConfig);
-var syncServer = rehearseSync(compiler, syncOpts, props, statics.map(s => path.join(appPath, s)));
+var pureComponents = componentsFinder.findPureComponents(componentsPath);
+
+var syncServer = rehearseSync(compiler, syncOpts, Object.assign({$props:props}, pureComponents), statics.map(s => path.join(appPath, s)));
 var devServer = new webpackDevServer(compiler, {
     hot: true,
     stats: { colors: true },

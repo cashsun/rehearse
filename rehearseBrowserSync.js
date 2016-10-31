@@ -2,13 +2,13 @@ var webpack = require('webpack');
 var browserSync = require('browser-sync').create();
 var webpackConfig = require('./webpack.config');
 
-module.exports = function (compiler, config, props, statics) {
+module.exports = function (compiler, config, reloadOnChange, statics) {
     return {
         run: function () {
             browserSync.init(config);
 
             var propsCompiler = webpack(Object.assign({}, webpackConfig, {
-                entry: props
+                entry: reloadOnChange
             }));
 
 

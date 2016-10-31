@@ -1,4 +1,4 @@
 import React from 'react';
 export default (props)=> {
-    return (<div>I'm a pure component{props.text}</div>)
+    return (<div>I'm a component called {props.text}.</div>);
 }
