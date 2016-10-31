@@ -4,7 +4,9 @@ import buttonContainer from './buttonContainerProps';
 
 
 const buttonContainer$AllowClick = Object.assign({}, buttonContainer, {title: 'ok, fine you can click..'});
-const myButtonPlain = Object.assign({}, myButton, {text: 'plain'});
+const myButtonPlain = Object.assign({}, myButton, {text: 'plain button'});
+const PureComponent = {};
+const React = {text: 'React'};
 
 export {
     myButton, // props for myButton (default scenario), notice "myButtom" matches the component FILE name.
@@ -15,6 +17,9 @@ export {
                     // that's it! your scenario will show automatically in the component viewing page
 
     myButtonPlain,
+
+    PureComponent,//you can event have some bizzare component file names
+    React,
 
     buttonContainer, // props for buttonContainer (default scenario)
     buttonContainer$AllowClick // props for buttonContainer ('AllowClick' scenario)
