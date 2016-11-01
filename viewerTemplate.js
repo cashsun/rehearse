@@ -14,7 +14,7 @@ module.exports = {
             import React from 'react';
             import _ from 'lodash';
             import ReactDom from 'react-dom';
-            import Viewer from './viewer.js'
+            import Viewer from 'rehearse/viewer'
             const allComponents = {};
             ${componentImports};
             import * as componentProps from '${props}';

@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { PureComponent } from 'react';
-import styles from './viewer.less';
+import styles from 'rehearse/viewer.less';
 
 export default class Viewer extends PureComponent {
     render() {

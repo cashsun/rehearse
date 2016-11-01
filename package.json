@@ -1,11 +1,11 @@
 {
   "name": "rehearse",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "React.js Live Development in Zen Mode",
   "main": "index.js",
   "scripts": {
     "w": "webpack",
-    "test": "mocha ./test --require test/setup --compilers js:babel-register",
+    "test": "env NODE_PATH=$NODE_PATH:$PWD/.. mocha ./test --require test/setup --compilers js:babel-register",
     "start": "node ./index.js"
   },
   "repository": {

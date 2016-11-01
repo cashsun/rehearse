@@ -16,6 +16,9 @@ var additionalWebpackPlugins = webpackOverride.plugins || [];
 var webpackConfig = {
     cache: true,
     resolve: {
+        alias:{
+            rehearse: __dirname
+        },
         root: [
             path.join(__dirname, 'node_modules'),
             path.join(workingDir, 'node_modules'),
