@@ -3,7 +3,9 @@
  */
 var fs = require('fs');
 var path = require('path');
+var _ = require('lodash');
 var jsRegex = /\.js$/;
+var shorid = require('shortid');
 function findComponentsFrom(componentPath, memo, isPureOnly) {
     var files = fs.readdirSync(componentPath);
     files.forEach(fileOrDir => {
@@ -15,15 +17,24 @@ function findComponentsFrom(componentPath, memo, isPureOnly) {
 
             if (jsRegex.test(fileOrDir)) {
                 var content = fs.readFileSync(completePath, 'utf8');
+                const displayName = fileOrDir.replace(jsRegex, '');
+                const path = completePath.replace(/\\/g, '/');
+                const id = shorid.generate().replace(/-/g, '_');
 
                 if (!isPureOnly) {
                     if (/\<.*\>/.test(content)) {
                         console.log(`Found component: ${fileOrDir}`);
-                        memo[fileOrDir.replace(jsRegex, '')] = completePath.replace(/\\/g, '/');
+                        memo[id] = {
+                            path,
+                            displayName
+                        };
                     }
                 } else if ((/\<.*\>/.test(content)) && (/(extends)|(createClass)/.test(content) !== true)) {
                     console.log(`Found pure component: ${fileOrDir}`);
-                    memo[fileOrDir.replace(jsRegex, '')] = completePath.replace(/\\/g, '/');
+                    memo[id] = {
+                        path,
+                        displayName
+                    };
                 }
 
             }
@@ -41,6 +52,9 @@ module.exports = {
     findPureComponents: function (startPath) {
         var memo = {};
         findComponentsFrom(startPath, memo, true);
-        return memo;
+        return _.reduce(memo, (next, componentInfo, key)=>{
+            next[key] = componentInfo.path;
+            return next;
+        }, {});
     }
 };

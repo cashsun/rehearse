@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import 'react-addons-test-utils';
 import { shallow, mount } from 'enzyme';
 import { expect } from 'chai';
@@ -10,11 +11,15 @@ const testOutput = path.join(__dirname, 'rehearse-viewer.js');
 import componentA from './sample/aComponent';
 import component2 from './sample/common/component2';
 const sampleComponents = componentFinder.find(path.join(__dirname, 'sample'));
+const keys = _.reduce(sampleComponents, (memo, compInfo, key)=>{
+    memo[compInfo.displayName] = key;
+    return memo;
+}, {});
 import testProps from './sample/props';
 const propsFile = path.join(__dirname, 'sample/props.js');
 
 
-describe('rehearse viewer', ()=> {
+describe.only('rehearse viewer', ()=> {
 
     beforeEach(()=> {
         rehearseTemplate.buildViewerPage(testOutput, sampleComponents, propsFile)
@@ -37,47 +42,47 @@ describe('rehearse viewer', ()=> {
 
         expect(wrapper.find('a')).to.have.lengthOf(4);
 
-        expect(wrapper.find('a').at(0).prop('href')).to.equal('/view/aComponent');
+        expect(wrapper.find('a').at(0).prop('href')).to.equal('/view/'+keys['aComponent']);
         expect(wrapper.find('a').at(0).text()).to.equal('aComponent');
 
-        expect(wrapper.find('a').at(1).prop('href')).to.equal('/view/PureComponent');
+        expect(wrapper.find('a').at(1).prop('href')).to.equal('/view/'+keys['PureComponent']);
         expect(wrapper.find('a').at(1).text()).to.equal('PureComponent');
 
-        expect(wrapper.find('a').at(2).prop('href')).to.equal('/view/component2');
-        expect(wrapper.find('a').at(2).text()).to.equal('component2');
+        expect(wrapper.find('a').at(2).prop('href')).to.equal('/view/'+keys['component-3']);
+        expect(wrapper.find('a').at(2).text()).to.equal('component-3');
 
-        expect(wrapper.find('a').at(3).prop('href')).to.equal('/view/component3');
-        expect(wrapper.find('a').at(3).text()).to.equal('component3');
+        expect(wrapper.find('a').at(3).prop('href')).to.equal('/view/'+keys['component2']);
+        expect(wrapper.find('a').at(3).text()).to.equal('component2');
 
     });
 
     it('renders error and list of available components when no target props found', () => {
-        window.target = 'component3';
+        window.target = keys['component-3'];
         const Viewer = require(testOutput).default;
         const viewerProps = require(testOutput).viewerProps;
         const wrapper = shallow(<Viewer {...viewerProps}/>);
 
         expect(wrapper.text()).contains('Error: you have not given props ' +
-            'for the component component3 in your props file');
+            'for the component component-3 in your props file');
 
         expect(wrapper.find('a')).to.have.lengthOf(4);
 
-        expect(wrapper.find('a').at(0).prop('href')).to.equal('/view/aComponent');
+        expect(wrapper.find('a').at(0).prop('href')).matches(/\/view\/.*/);
         expect(wrapper.find('a').at(0).text()).to.equal('aComponent');
 
-        expect(wrapper.find('a').at(1).prop('href')).to.equal('/view/PureComponent');
+        expect(wrapper.find('a').at(1).prop('href')).matches(/\/view\/.*/);
         expect(wrapper.find('a').at(1).text()).to.equal('PureComponent');
 
-        expect(wrapper.find('a').at(2).prop('href')).to.equal('/view/component2');
-        expect(wrapper.find('a').at(2).text()).to.equal('component2');
+        expect(wrapper.find('a').at(2).prop('href')).matches(/\/view\/.*/);
+        expect(wrapper.find('a').at(2).text()).to.equal('component-3');
 
-        expect(wrapper.find('a').at(3).prop('href')).to.equal('/view/component3');
-        expect(wrapper.find('a').at(3).text()).to.equal('component3');
+        expect(wrapper.find('a').at(3).prop('href')).matches(/\/view\/.*/);
+        expect(wrapper.find('a').at(3).text()).to.equal('component2');
 
     });
 
     it('renders error and list of available components when no target scenario found', () => {
-        window.target = 'aComponent';
+        window.target = keys['aComponent'];
         window.scenario = 'does-not-exist';
         const Viewer = require(testOutput).default;
         const viewerProps = require(testOutput).viewerProps;
@@ -86,22 +91,22 @@ describe('rehearse viewer', ()=> {
         expect(wrapper.text()).contains('Error: you have not given props for the component aComponent' +
             ' in your props file');
 
-        expect(wrapper.find('a').at(0).prop('href')).to.equal('/view/aComponent');
+        expect(wrapper.find('a').at(0).prop('href')).matches(/\/view\/.*/);
         expect(wrapper.find('a').at(0).text()).to.equal('aComponent');
 
-        expect(wrapper.find('a').at(1).prop('href')).to.equal('/view/PureComponent');
+        expect(wrapper.find('a').at(1).prop('href')).matches(/\/view\/.*/);
         expect(wrapper.find('a').at(1).text()).to.equal('PureComponent');
 
-        expect(wrapper.find('a').at(2).prop('href')).to.equal('/view/component2');
-        expect(wrapper.find('a').at(2).text()).to.equal('component2');
+        expect(wrapper.find('a').at(2).prop('href')).matches(/\/view\/.*/);
+        expect(wrapper.find('a').at(2).text()).to.equal('component-3');
 
-        expect(wrapper.find('a').at(3).prop('href')).to.equal('/view/component3');
-        expect(wrapper.find('a').at(3).text()).to.equal('component3');
+        expect(wrapper.find('a').at(3).prop('href')).matches(/\/view\/.*/);
+        expect(wrapper.find('a').at(3).text()).to.equal('component2');
 
     });
 
     it('renders aComponent when selected and shows scenarios', () => {
-        window.target = 'aComponent';
+        window.target = keys['aComponent'];
         const Viewer = require(testOutput).default;
         const viewerProps = require(testOutput).viewerProps;
         const wrapper = shallow(<Viewer {...viewerProps}/>);
@@ -127,7 +132,7 @@ describe('rehearse viewer', ()=> {
     });
 
     it('renders aComponent when selected with scenario and shows scenarios', () => {
-        window.target = 'aComponent';
+        window.target = keys['aComponent'];
         window.scenario = 's1';
         const Viewer = require(testOutput).default;
         const viewerProps = require(testOutput).viewerProps;
@@ -142,7 +147,7 @@ describe('rehearse viewer', ()=> {
     });
 
     it('renders component2 when selected', () => {
-        window.target = 'component2';
+        window.target = keys['component2'];
         const Viewer = require(testOutput).default;
         const viewerProps = require(testOutput).viewerProps;
         const wrapper = shallow(<Viewer {...viewerProps}/>);

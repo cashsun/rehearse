@@ -89,11 +89,12 @@ var devServer = new webpackDevServer(compiler, {
             next(err)
         });
 
-        server.use('/view/:component/:scenario?', function (req, res, next) {
-            var component = req.params.component;
+        server.use('/view/:componentKey/:scenario?', function (req, res, next) {
+            var componentKey = req.params.componentKey;
             var scenario = req.params.scenario || '';
-            console.warn(`requesting ${component} (${scenario || 'default'})`);
-            res.send(rehearseTemplates.getIndex(resourceList, component, scenario));
+            var componentName = components[componentKey]&&components[componentKey].displayName || 'undefined';
+            console.warn(`requesting ${componentName} (${scenario || 'default'})`);
+            res.send(rehearseTemplates.getIndex(resourceList, componentName, componentKey, scenario));
         });
 
         server.use('/all', function (req, res, next) {
@@ -116,7 +117,7 @@ process.on('exit', (code) => {
 });
 
 process.on('uncaughtException', (err) => {
-    console.error(`UnCaught exception: ${err}`);
+    console.error('Uncaught exception:', err);
     process.exit();
 });
 

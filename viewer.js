@@ -2,15 +2,16 @@ import _ from 'lodash';
 import React, { PureComponent } from 'react';
 import styles from 'rehearse/viewer.less';
 
-export default class Viewer extends PureComponent {
+class Viewer extends PureComponent {
+
     render() {
-        const { allComponents, allProps, component, scenario } = this.props;
+        const { allComponents, allProps, target, scenario } = this.props;
 
         const componentLinks = (
             <div>
-                {_.map(allComponents, (componentClass, componentName) => (
-                    <a key={componentName} className={styles.scenario}
-                       href={`/view/${componentName}`}>{componentName}</a>
+                {_.map(allComponents, (componentInfo, componentKey) => (
+                    <a key={componentKey} className={styles.scenario}
+                       href={`/view/${componentKey}`}>{componentInfo.displayName}</a>
                 ))}
             </div>
         );
@@ -24,18 +25,18 @@ export default class Viewer extends PureComponent {
         );
 
 
-        function scenariosLinks(componentName) {
-            const regex = new RegExp('^' + componentName + '(\\$.*)?$');
+        function scenariosLinks(component, target) {
+            const regex = new RegExp('^' + component.displayName + '(\\$.*)?$');
             const match = RegExp.prototype.test.bind(regex);
             const propsKeys = _.keys(allProps);
             return (
                 <div>
                     {propsKeys.filter(match).map((scenarioPropKey, key)=> {
-                        const scenario = scenarioPropKey.replace(componentName, '').replace('$', '');
+                        const scenario = scenarioPropKey.replace(component.displayName, '').replace('$', '');
                         const scenarioDisplay = scenario || 'default';
                         return (
                             <span key={key} className={styles.scenario}>
-                            <a href={'/view/' + componentName + '/' + scenario}>{componentName + ' (' + scenarioDisplay + ')'}</a>
+                            <a href={'/view/' + target + '/' + scenario}>{component.displayName + ' (' + scenarioDisplay + ')'}</a>
                             <br/>
                         </span>
                         );
@@ -56,7 +57,7 @@ export default class Viewer extends PureComponent {
             );
         }
 
-        let targetComponent = allComponents[component];
+        let targetComponent = allComponents[target];
         if (!targetComponent) {
             return (
                 <div className={styles.base}>
@@ -65,19 +66,21 @@ export default class Viewer extends PureComponent {
             )
         }
 
-        let targetProps = allProps[component + ((scenario && ('$' + scenario)) || '')];
+
+        let targetProps = allProps[targetComponent.displayName + ((scenario && ('$' + scenario)) || '')];
 
         if (!targetProps) {
             return (
                 <div className={styles.base}>
                     <strong>Error: you have not given props for the
-                        component {component} in your props file</strong>
+                        component {targetComponent.displayName} in your props file</strong>
                     {availableComponents}
                 </div>
             )
         }
 
-        const comp = React.createElement(targetComponent, targetProps);
+        console.log('viewing: ', targetComponent.displayName, `(${scenario || 'default'})`);
+        const comp = React.createElement(targetComponent.component, targetProps);
 
         return (
             <div className={styles.base}>
@@ -86,13 +89,12 @@ export default class Viewer extends PureComponent {
                 </div>
                 <div className={styles.scenarios}>
                     <h6>scenarios:</h6>
-                    {scenariosLinks(component)}
+                    {scenariosLinks(targetComponent, target)}
                 </div>
             </div>
         )
-
     }
 }
 
 
-
+export default Viewer;

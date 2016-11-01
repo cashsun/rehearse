@@ -16,7 +16,7 @@ var additionalWebpackPlugins = webpackOverride.plugins || [];
 var webpackConfig = {
     cache: true,
     resolve: {
-        alias:{
+        alias: {
             rehearse: __dirname
         },
         root: [
@@ -34,7 +34,7 @@ var webpackConfig = {
             {
                 test: /\.js$/,
                 exclude: /(node_modules)(?!.{1}rehearse)/,
-                loaders: ['react-hot', 'babel-loader?cacheDirectory&presets[]=react,presets[]=es2015']
+                loaders: ['react-hot', 'babel-loader']
             },
             {
                 test: /\.less$/,
