@@ -1,5 +1,5 @@
 # rehearse
-live react components development in zen mode.
+>live react components development in zen mode.
 
 [Home Page](http://cashsun.github.io/rehearse/)
 
@@ -34,7 +34,7 @@ npm i rehearse -D
 
 ```
 
-Configure: create a rehearse.config.js at your root folder (working dir).
+Configure: create a `rehearse.config.js` at your root folder (working dir).
 
 ```javascript
 const path = require('path');
@@ -68,7 +68,7 @@ module.exports = config;
 
 Run
 
-Add rehearse to your package.json npm scripts
+Add rehearse to your `package.json` npm scripts
 ```json
 {
     "scripts": {
