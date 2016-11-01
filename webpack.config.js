@@ -18,8 +18,8 @@ var webpackConfig = {
     resolve: {
         root: [
             path.join(__dirname, 'node_modules'),
-            path.resolve(workingDir),
-            path.join(workingDir, 'node_modules/rehearse')
+            path.join(workingDir, 'node_modules'),
+            path.resolve(__dirname)
         ]
     },
     entry: [
@@ -30,8 +30,8 @@ var webpackConfig = {
         loaders: [
             {
                 test: /\.js$/,
-                exclude: /(node_modules)/,
-                loaders: ['react-hot', 'babel-loader?cacheDirectory=true&presets[]=react,presets[]=es2015']
+                exclude: /(node_modules)(?!.{1}rehearse)/,
+                loaders: ['react-hot', 'babel-loader?cacheDirectory&presets[]=react,presets[]=es2015']
             },
             {
                 test: /\.less$/,

@@ -36,6 +36,10 @@ module.exports = function (compiler, config, reloadOnChange, statics) {
                 });
 
             return browserSync;
+        },
+
+        cleanup: function () {
+            browserSync.cleanup();
         }
     }
 };
