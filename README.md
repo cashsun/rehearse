@@ -27,14 +27,14 @@ React live editing (a.k.a hot reload) made easy -> Let Rehearse do the compiling
 
 
 
-1. Install as a [npm module](https://www.npmjs.com/package/rehearse)
+>1 Install as a [npm module](https://www.npmjs.com/package/rehearse)
 
 ```bash
 npm i rehearse -D
 
 ```
 
-2. Configure: create a `rehearse.config.js` at your root folder (working dir).
+>2 Configure: create a `rehearse.config.js` at your root folder (working dir).
 
 ```javascript
 const path = require('path');
@@ -67,7 +67,7 @@ module.exports = config;
 ```
 
 
-3. Create a `.babelrc` at your root folder (working dir). e.g.
+>3 Create a `.babelrc` at your root folder (working dir). e.g.
 
 ```javascript
 {
@@ -80,10 +80,10 @@ module.exports = config;
 ```
 
 
-4. Customise component [props and scenarios](https://github.com/cashsun/rehearse/blob/master/example/props/props.js)
+>4 Customise component [props and scenarios](https://github.com/cashsun/rehearse/blob/master/example/props/props.js)
 
 
-5. Run
+>5 Run
 
 Add rehearse to your `package.json` npm scripts
 ```json
