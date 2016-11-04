@@ -8,6 +8,7 @@ var rehearseSync = require('./rehearseBrowserSync');
 var webpack = require('webpack');
 var webpackDevServer = require('webpack-dev-server');
 var webpackConfig = require('./webpack.config');
+var lessMiddleware = require('less-middleware');
 var rehearseTemplates = require('./rehearseTemplates');
 var componentsFinder = require('./componentsFinder');
 var workingDir = process.cwd();
@@ -46,9 +47,9 @@ rehearseTemplates.buildViewerPage(entryFile, components, props);
 
 var resourceList = statics.map(s => {
     if (/\.js$/.test(s)) {
-        return { type: 'js', href: appPrefix + '/' + s };
-    } else if (/\.css$/.test(s)) {
-        return { type: 'css', href: appPrefix + '/' + s };
+        return { type: 'js', href:  '/' + s };
+    } else if (/\.(css|less)$/.test(s)) {
+        return { type: 'css', href: '/' + s.replace(/\.less$/, '.css') };
     } else {
         throw new Error(`unsupported statics ${s}, please note rehearse currently 
            only support css, less and js as statics`);
@@ -82,7 +83,8 @@ var devServer = new webpackDevServer(compiler, {
         server.use('/rehearse', express.static(__dirname));
 
         if (statics.length) {
-            server.use(appPrefix, express.static(appPath));
+            server.use(lessMiddleware(appPath, {force: true}));
+            server.use(express.static(appPath));
         }
 
         server.use(function (err, req, res, next) {
