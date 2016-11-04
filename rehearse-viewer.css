@@ -14,10 +14,11 @@
 }
 
 .rehearse-viewer iframe {
-    border: 1px dotted red; !important;
-    min-height: 500px; !important;
+    border: 1px dotted blue; !important;
+    height: 700px; !important;
     position: relative;
-    width: 100%; !important;
+    margin-left: 10px;
+    width: 95%; !important;
 }
 
 .rehearse-viewer .scenarios {
@@ -33,11 +34,9 @@
 }
 
 .rehearse-viewer .scenarios .scenario {
-    margin-bottom: 15px; !important;
+    margin: 15px 30px; !important;
     display: inline-block; !important;
-    width: 100%; !important;
-    clear: right; !important;
-
+    width: auto; !important;
     padding: 10px; !important;
     font-size: 11px; !important;
 }

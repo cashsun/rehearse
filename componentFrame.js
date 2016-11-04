@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React, { PureComponent } from 'react';
 
 class ComponentFrame extends PureComponent {
@@ -13,8 +12,15 @@ class ComponentFrame extends PureComponent {
 
         const comp = React.createElement(targetComponent.component, targetProps);
 
+
         return (
-                <div className='frame'>
+                <div style={{
+                    borderColor: 'red',
+                    borderWidth: 1,
+                    borderStyle: 'dotted',
+                    width: 'auto',
+                    display: 'inline-block'
+                }} >
                     {comp}
                 </div>
         )
