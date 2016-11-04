@@ -45,6 +45,7 @@ const config = {
         //entry: [], additonal entry. default: []
         //devtool: 'source-map',  default:'cheap-module-eval-source-map'
         //port: 3001,  default:3000
+        //modulesDirectories: [], default: [],
         //overrideLoaders,  default:false
         //overridePlugins,  default: false
         port: 3001

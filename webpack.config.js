@@ -14,6 +14,7 @@ var overrideLoaders = webpackOverride.overrideLoaders;
 var overridePlugins = webpackOverride.overridePlugins;
 var additionalWebpackLoaders = webpackOverride.loaders || [];
 var additionalWebpackPlugins = webpackOverride.plugins || [];
+var modulesDirectories = webpackOverride.modulesDirectories;
 var additionalEntry = webpackOverride.entry || [];
 var additionalAlias = webpackOverride.alias || {};
 
@@ -27,7 +28,8 @@ var webpackConfig = {
             path.join(__dirname, 'node_modules'),
             path.join(workingDir, 'node_modules'),
             path.resolve(__dirname)
-        ]
+        ],
+        modulesDirectories
     },
     entry: [
         'webpack/hot/only-dev-server',

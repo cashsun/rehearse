@@ -8,7 +8,6 @@ var rehearseSync = require('./rehearseBrowserSync');
 var webpack = require('webpack');
 var webpackDevServer = require('webpack-dev-server');
 var webpackConfig = require('./webpack.config');
-var lessMiddleware = require('less-middleware');
 var rehearseTemplates = require('./rehearseTemplates');
 var componentsFinder = require('./componentsFinder');
 var workingDir = process.cwd();
@@ -22,7 +21,6 @@ var props = config.props;
 var port = config.port || 9001;
 var devServerPort = (config.webpack && config.webpack.port) || 3000;
 var localhost = `http://localhost:${devServerPort}/`;
-const appPrefix = '/app';
 webpackConfig.entry.unshift(`webpack-dev-server/client?${localhost}`);
 
 if (!Array.isArray(statics)) {
@@ -48,11 +46,11 @@ rehearseTemplates.buildViewerPage(entryFile, components, props);
 var resourceList = statics.map(s => {
     if (/\.js$/.test(s)) {
         return { type: 'js', href:  '/' + s };
-    } else if (/\.(css|less)$/.test(s)) {
-        return { type: 'css', href: '/' + s.replace(/\.less$/, '.css') };
+    } else if (/\.css$/.test(s)) {
+        return { type: 'css', href: '/' + s };
     } else {
         throw new Error(`unsupported statics ${s}, please note rehearse currently 
-           only support css, less and js as statics`);
+           only support css and js as statics`);
     }
 });
 
@@ -63,9 +61,9 @@ const syncOpts = {
 };
 
 var compiler = webpack(webpackConfig);
-var pureComponents = componentsFinder.findPureComponents(componentsPath);
+// var pureComponents = componentsFinder.findPureComponents(componentsPath);
 
-var syncServer = new rehearseSync(compiler, syncOpts, Object.assign({ $props: props }, pureComponents), statics.map(s => path.join(appPath, s)));
+var syncServer = new rehearseSync(compiler, syncOpts, Object.assign({ $props: props }), statics.map(s => path.join(appPath, s)));
 var devServer = new webpackDevServer(compiler, {
     hot: true,
     stats: { colors: true },
@@ -83,7 +81,6 @@ var devServer = new webpackDevServer(compiler, {
         server.use('/rehearse', express.static(__dirname));
 
         if (statics.length) {
-            server.use(lessMiddleware(appPath, {force: true}));
             server.use(express.static(appPath));
         }
 

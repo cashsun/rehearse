@@ -4,11 +4,10 @@
 const _ = require('lodash');
 module.exports = {
     build: function (componentsMetadata, props) {
-        const componentImports = _.map(componentsMetadata, function (info, componentKey) {
+        const componentImports = _.map(componentsMetadata, (info, componentKey) => {
             return `import $${componentKey} from '${info.path}';
                     allComponents['${componentKey}'] = {component: $${componentKey}, displayName:'${info.displayName}'}`
         }).join(';\n');
-
 
         return `
             import React from 'react';
@@ -18,7 +17,6 @@ module.exports = {
             const allComponents = {};
             ${componentImports};
             import componentProps from '${props}';
-            
             
             const viewerProps = {
                 allComponents,

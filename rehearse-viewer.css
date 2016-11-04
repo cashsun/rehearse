@@ -1,26 +1,44 @@
+.rehearse-viewer * {
+    color: black; !important;
+    font-size: 1em; !important;
+}
+
+.rehearse-viewer a {
+    font-size: inherit;!important;
+    color: blue; !important;
+}
+
 .rehearse-viewer strong {
-  color: red;
+    font-size: inherit;!important;
+    color: red; !important;
 }
 
 .rehearse-viewer iframe {
-  border: 1px dotted red;
-  min-height: 500px;
-  width: 100%;
+    border: 1px dotted red; !important;
+    min-height: 500px; !important;
+    position: relative;
+    width: 100%; !important;
+}
+
+.rehearse-viewer .scenarios {
+    font-size: inherit;!important;
+    position: relative; !important;
 }
 
 .rehearse-viewer .scenarios h6 {
-  color: gray;
-  font-size: 1.5em;
-  margin: 15px 0;
+    color: gray; !important;
+    font-size: 22px; !important;
+    font-weight: bolder;
+    margin: 15px 0; !important;
 }
 
 .rehearse-viewer .scenarios .scenario {
-  margin-bottom: 15px;
-  display: inline-block;
-  width: 100%;
-  clear: right;
+    margin-bottom: 15px; !important;
+    display: inline-block; !important;
+    width: 100%; !important;
+    clear: right; !important;
 
-  padding: 10px;
-  font-size: 11px;
+    padding: 10px; !important;
+    font-size: 11px; !important;
 }
 
