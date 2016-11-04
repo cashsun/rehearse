@@ -19,7 +19,7 @@ import testProps from './sample/props';
 const propsFile = path.join(__dirname, 'sample/props.js');
 
 
-describe.only('rehearse viewer', ()=> {
+describe('rehearse viewer', ()=> {
 
     beforeEach(()=> {
         rehearseTemplate.buildViewerPage(testOutput, sampleComponents, propsFile)
@@ -28,6 +28,7 @@ describe.only('rehearse viewer', ()=> {
     afterEach(()=> {
         window.target = '';
         window.scenario = '';
+        window.isFrame = false;
         delete require.cache[testOutput];
         fs.unlinkSync(testOutput);
     });
@@ -107,6 +108,7 @@ describe.only('rehearse viewer', ()=> {
 
     it('renders aComponent when selected and shows scenarios', () => {
         window.target = keys['aComponent'];
+        window.isFrame = true;
         const Viewer = require(testOutput).default;
         const viewerProps = require(testOutput).viewerProps;
         const wrapper = shallow(<Viewer {...viewerProps}/>);
@@ -117,18 +119,6 @@ describe.only('rehearse viewer', ()=> {
         expect(wrapper.find(componentA).props()).to.deep.equal(testProps.aComponent);
 
 
-        expect(wrapper.text()).to.contain('scenarios:');
-        expect(wrapper.find('a')).to.have.lengthOf(4);
-
-        expect(wrapper.find('a').at(0).text()).to.equal('aComponent (default)');
-        expect(wrapper.find('a').at(1).text()).to.equal('aComponent (s1)');
-
-        expect(wrapper.find('a').at(2).text()).to.equal('How to setup scenarios?');
-        expect(wrapper.find('a').at(2).prop('href')).to.equal('https://github.com/cashsun/rehearse/blob/master/example/props/props.js');
-
-        expect(wrapper.find('a').at(3).text()).to.equal('<< back to list');
-        expect(wrapper.find('a').at(3).prop('href')).to.equal('/all');
-
     });
 
     it('renders aComponent when selected with scenario and shows scenarios', () => {
@@ -138,9 +128,6 @@ describe.only('rehearse viewer', ()=> {
         const viewerProps = require(testOutput).viewerProps;
         const wrapper = shallow(<Viewer {...viewerProps}/>);
 
-        expect(wrapper.find(componentA)).to.have.lengthOf(1);
-        expect(wrapper.find(componentA).props()).to.deep.equal(testProps.aComponent$s1);
-
         expect(wrapper.find('a').at(0).text()).to.equal('aComponent (default)');
         expect(wrapper.find('a').at(1).text()).to.equal('aComponent (s1)');
 
@@ -148,14 +135,13 @@ describe.only('rehearse viewer', ()=> {
 
     it('renders component2 when selected', () => {
         window.target = keys['component2'];
+        window.isFrame = true;
         const Viewer = require(testOutput).default;
         const viewerProps = require(testOutput).viewerProps;
         const wrapper = shallow(<Viewer {...viewerProps}/>);
 
         expect(wrapper.find(component2)).to.have.lengthOf(1);
         expect(wrapper.find(component2).props()).to.deep.equal(testProps.component2);
-
-        expect(wrapper.find('a').at(0).text()).to.equal('component2 (default)');
 
     });
 });

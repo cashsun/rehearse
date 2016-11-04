@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rehearse - <%= componentName %></title>
+    <% statics.map(function(file){ %>
+        <% if( file.type === 'css'){ %>
+            <link rel="stylesheet" type="text/css" href="<%= file.href %>">
+        <% } else if (file.type === 'js') { %>
+            <script type="text/javascript" src="<%= file.href %>"></script>
+        <% } %>
+    <% }) %>
+</head>
+<body>
+    <div id="viewer"></div>
+    <script type="text/javascript">
+        console.log('viewing: <%= componentName %> (<%= scenario %>)');
+        window.target = '<%= componentKey %>';
+        window.scenario = '<%= scenario %>';
+        window.isFrame = true;
+    </script>
+    <script type="text/javascript" src="/viewer/rehearse-viewer.build.js"></script>
+
+</body>
+</html>

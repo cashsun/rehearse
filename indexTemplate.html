@@ -3,22 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Rehearse - <%= componentName %></title>
-    <% statics.map(function(file){ %>
-        <% if( file.type === 'css'){ %>
-            <link rel="stylesheet" type="text/css" href="/app/<%= file.href %>">
-        <% } else if (file.type === 'js') { %>
-            <script type="text/javascript" src="/app/<%= file.href %>"></script>
-        <% } %>
-    <% }) %>
+    <link rel="stylesheet" type="text/css" href="/rehearse/rehearse-viewer.css">
 </head>
 <body>
-    <div id="viewer"></div>
-    <script type="text/javascript">
-        console.log('viewing: <%= componentName %> (<%= scenario %>)');
-        window.target = '<%= componentKey %>';
-        window.scenario = '<%= scenario %>';
-    </script>
-    <script type="text/javascript" src="/viewer/rehearse-viewer.build.js"></script>
+<div id="viewer"></div>
+<script type="text/javascript">
+    console.log('viewing: <%= componentName %> (<%= scenario %>)');
+    window.target = '<%= componentKey %>';
+    window.scenario = '<%= scenario %>';
+</script>
+<script type="text/javascript" src="/viewer/rehearse-viewer.build.js"></script>
 
 </body>
 </html>

@@ -30,18 +30,11 @@ describe('componentsFinder', ()=> {
         ]);
     });
 
-    // it('generate keys prefiexed with $', ()=> {
-    //     const components = componentFinder.find(path.join(__dirname, 'sample'));
-    //     expect(_.every(_.keys(components), k => /^\$/.test)).to.equal(true);
-    // });
 
     it('finds all pure components', () => {
         const components = componentFinder.findPureComponents(path.join(__dirname, 'sample'));
         expect(_.values(components)).to.deep.equal([
-            {
-                displayName: "PureComponent",
-                path: "/Users/cashsun/Desktop/github/rehearse/test/sample/common/PureComponent.js"
-            }
+            "/Users/cashsun/Desktop/github/rehearse/test/sample/common/PureComponent.js"
         ]);
     });
 

@@ -10,15 +10,19 @@ var workingDir = process.cwd();
 var config = require(path.join(workingDir, 'rehearse.config.js'));
 var VIEWER = 'rehearse-viewer';
 var webpackOverride = config.webpack || {};
+var overrideLoaders = webpackOverride.overrideLoaders;
+var overridePlugins = webpackOverride.overridePlugins;
 var additionalWebpackLoaders = webpackOverride.loaders || [];
 var additionalWebpackPlugins = webpackOverride.plugins || [];
+var additionalEntry = webpackOverride.entry || [];
+var additionalAlias = webpackOverride.alias || {};
 
 var webpackConfig = {
     cache: true,
     resolve: {
-        alias: {
+        alias: Object.assign({
             rehearse: __dirname
-        },
+        }, additionalAlias),
         root: [
             path.join(__dirname, 'node_modules'),
             path.join(workingDir, 'node_modules'),
@@ -27,19 +31,15 @@ var webpackConfig = {
     },
     entry: [
         'webpack/hot/only-dev-server',
-        path.join(workingDir, `${VIEWER}.js`)
-    ],
+        path.join(workingDir, `${VIEWER}.js`),
+    ].concat(additionalEntry),
     module: {
-        loaders: [
+        loaders: overrideLoaders ? additionalWebpackLoaders : [
             {
                 test: /\.js$/,
                 exclude: /(node_modules)(?!.{1}rehearse)/,
                 loaders: ['react-hot', 'babel-loader']
             },
-            {
-                test: /\.less$/,
-                loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!less-loader'
-            }
         ].concat(additionalWebpackLoaders)
     },
     devtool: webpackOverride.devtool || 'eval',
@@ -48,7 +48,7 @@ var webpackConfig = {
         publicPath: '/viewer',
         path: path.resolve(tmpdir)
     },
-    plugins: [
+    plugins: overridePlugins ? additionalWebpackPlugins : [
         new webpack.HotModuleReplacementPlugin()
     ].concat(additionalWebpackPlugins)
 };

@@ -1,0 +1,26 @@
+.rehearse-viewer strong {
+  color: red;
+}
+
+.rehearse-viewer iframe {
+  border: 1px dotted red;
+  min-height: 500px;
+  width: 100%;
+}
+
+.rehearse-viewer .scenarios h6 {
+  color: gray;
+  font-size: 1.5em;
+  margin: 15px 0;
+}
+
+.rehearse-viewer .scenarios .scenario {
+  margin-bottom: 15px;
+  display: inline-block;
+  width: 100%;
+  clear: right;
+
+  padding: 10px;
+  font-size: 11px;
+}
+

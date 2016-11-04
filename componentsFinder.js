@@ -6,6 +6,8 @@ var path = require('path');
 var _ = require('lodash');
 var jsRegex = /\.js$/;
 var shorid = require('shortid');
+const htmlTagRegex = /<[a-zA-Z0-9]+/;
+
 function findComponentsFrom(componentPath, memo, isPureOnly) {
     var files = fs.readdirSync(componentPath);
     files.forEach(fileOrDir => {
@@ -22,15 +24,15 @@ function findComponentsFrom(componentPath, memo, isPureOnly) {
                 const id = shorid.generate().replace(/-/g, '_');
 
                 if (!isPureOnly) {
-                    if (/\<.*\>/.test(content)) {
+                    if (htmlTagRegex.test(content)) {
                         console.log(`Found component: ${fileOrDir}`);
                         memo[id] = {
                             path,
                             displayName
                         };
                     }
-                } else if ((/\<.*\>/.test(content)) && (/(extends)|(createClass)/.test(content) !== true)) {
-                    console.log(`Found pure component: ${fileOrDir}`);
+                } else if ((htmlTagRegex.test(content)) && (/(extends|createClass)/.test(content) !== true)) {
+                    console.log(`Found functional component: ${fileOrDir}`);
                     memo[id] = {
                         path,
                         displayName

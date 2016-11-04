@@ -40,26 +40,29 @@ npm i rehearse -D
 const path = require('path');
 const config = {
     webpack: {
-        //currently only support additional loaders, i.e. loaders: []
-        //or additional plugins , i.e. plugins: []
-        //or devtool:string i.e. devtool: 'source-map',  default:'cheap-module-eval-source-map'
-        //or port:number for the server,  default:3000
+        //loaders: [], default: [] (rehearse already has babel-loader that reads .babelrc at your working directory)
+        //plugins: [], default: []
+        //entry: [], additonal entry. default: []
+        //devtool: 'source-map',  default:'cheap-module-eval-source-map'
+        //port: 3001,  default:3000
+        //overrideLoaders,  default:false
+        //overridePlugins,  default: false
+        port: 3001
     },
-    props: path.join(__dirname, 'example/props.js'),//path of the props file, mandatory
+    props: path.join(__dirname, 'example/props/props.js'),//path of the props file, mandatory
 
     componentsPath: path.join(__dirname, 'example/components'),//absolute path of components, mandatory
 
     statics: [
         'css/theme.css',
+        'css/theme2.less',
         'js/lib.js'
     ],//list of strings to be included in the header of rehearse page,
-                // e.g. css/bootstrap.css etc, they should be direct children of appPath
+    // e.g. css/bootstrap.css etc, they should be direct children of appPath
 
     appPath: path.join(__dirname, 'example'), //absolute path of client folder, mandatory if statics is not empty
-    port: 9001,  //port of the rehearse server, please pay attention that the page you should visit should be browser-synced one, 
-                //usually localhost:3000 (shown in console)
-                
-    open: true //auto open browser on start?
+    port: 9001,  //port of the rehearse server
+    open: true //auto open browser?
 };
 
 module.exports = config;

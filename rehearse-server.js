@@ -3,8 +3,6 @@
  */
 var path = require('path');
 var fs = require('fs');
-var _ = require('lodash');
-var getIndexTemplate = require('./rehearseTemplates');
 var express = require('express');
 var rehearseSync = require('./rehearseBrowserSync');
 var webpack = require('webpack');
@@ -23,6 +21,7 @@ var props = config.props;
 var port = config.port || 9001;
 var devServerPort = (config.webpack && config.webpack.port) || 3000;
 var localhost = `http://localhost:${devServerPort}/`;
+const appPrefix = '/app';
 webpackConfig.entry.unshift(`webpack-dev-server/client?${localhost}`);
 
 if (!Array.isArray(statics)) {
@@ -47,12 +46,12 @@ rehearseTemplates.buildViewerPage(entryFile, components, props);
 
 var resourceList = statics.map(s => {
     if (/\.js$/.test(s)) {
-        return { type: 'js', href: s }
+        return { type: 'js', href: appPrefix + '/' + s };
     } else if (/\.css$/.test(s)) {
-        return { type: 'css', href: s }
+        return { type: 'css', href: appPrefix + '/' + s };
     } else {
         throw new Error(`unsupported statics ${s}, please note rehearse currently 
-           only support css and js as statics`);
+           only support css, less and js as statics`);
     }
 });
 
@@ -65,7 +64,7 @@ const syncOpts = {
 var compiler = webpack(webpackConfig);
 var pureComponents = componentsFinder.findPureComponents(componentsPath);
 
-var syncServer = new rehearseSync(compiler, syncOpts, Object.assign({$props:props}, pureComponents), statics.map(s => path.join(appPath, s)));
+var syncServer = new rehearseSync(compiler, syncOpts, Object.assign({ $props: props }, pureComponents), statics.map(s => path.join(appPath, s)));
 var devServer = new webpackDevServer(compiler, {
     hot: true,
     stats: { colors: true },
@@ -78,10 +77,12 @@ var devServer = new webpackDevServer(compiler, {
         console.log('compile finished.');
     },
     setup: function (server) {
-        console.log('setting up dev server..........');
+        console.log('setting up dev server APIs and middlewares...');
+
+        server.use('/rehearse', express.static(__dirname));
 
         if (statics.length) {
-            server.use('/app', express.static(appPath));
+            server.use(appPrefix, express.static(appPath));
         }
 
         server.use(function (err, req, res, next) {
@@ -89,19 +90,30 @@ var devServer = new webpackDevServer(compiler, {
             next(err)
         });
 
+
         server.use('/view/:componentKey/:scenario?', function (req, res, next) {
             var componentKey = req.params.componentKey;
             var scenario = req.params.scenario || '';
-            var componentName = components[componentKey]&&components[componentKey].displayName || 'undefined';
+            var componentName = components[componentKey] && components[componentKey].displayName || 'undefined';
             console.warn(`requesting ${componentName} (${scenario || 'default'})`);
             res.send(rehearseTemplates.getIndex(resourceList, componentName, componentKey, scenario));
         });
+
+        server.use('/targetframe/:componentKey/:scenario?', function (req, res, next) {
+            var componentKey = req.params.componentKey;
+            var scenario = req.params.scenario || '';
+            var componentName = components[componentKey] && components[componentKey].displayName || 'undefined';
+            console.warn(`requesting frame for ${componentName} (${scenario || 'default'})`);
+            res.send(rehearseTemplates.getIndex(resourceList, componentName, componentKey, scenario, true));
+        });
+
 
         server.use('/all', function (req, res, next) {
             res.send(rehearseTemplates.getIndex(resourceList))
         });
     }
 });
+
 function handleError() {
     devServer.close();
     syncServer.cleanup();
