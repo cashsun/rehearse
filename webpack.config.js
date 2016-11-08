@@ -2,12 +2,14 @@
  * Created by cashsun on 2016/10/19.
  */
 var path = require('path');
+var argv = require('yargs').argv;
 var os = require('os');
 var webpack = require('webpack');
 var tmpdir = os.tmpdir();
 console.log('tmpdir', tmpdir);
 var workingDir = process.cwd();
-var config = require(path.join(workingDir, 'rehearse.config.js'));
+var configPath = argv.config || 'rehearse.config.js';
+var config = require(path.join(workingDir, configPath));
 var VIEWER = 'rehearse-viewer';
 var webpackOverride = config.webpack || {};
 var overrideLoaders = webpackOverride.overrideLoaders;

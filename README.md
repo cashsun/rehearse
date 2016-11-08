@@ -93,7 +93,7 @@ Add rehearse to your `package.json` npm scripts
 ```json
 {
     "scripts": {
-        "rehearse": "rehearse"
+        "rehearse": "rehearse" // [--config ./example/rehearse.config.js]
     }
 }
 ```

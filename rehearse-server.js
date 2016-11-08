@@ -3,6 +3,7 @@
  */
 var path = require('path');
 var fs = require('fs');
+var argv = require('yargs').argv;
 var express = require('express');
 var rehearseSync = require('./rehearseBrowserSync');
 var webpack = require('webpack');
@@ -11,7 +12,8 @@ var webpackConfig = require('./webpack.config');
 var rehearseTemplates = require('./rehearseTemplates');
 var componentsFinder = require('./componentsFinder');
 var workingDir = process.cwd();
-var config = require(path.join(workingDir, 'rehearse.config.js'));
+var configPath = argv.config || 'rehearse.config.js';
+var config = require(path.join(workingDir, configPath));
 //--------------------config init-------
 var statics = config.statics || [];
 var appPath = config.appPath;
@@ -63,7 +65,7 @@ const syncOpts = {
 var compiler = webpack(webpackConfig);
 // var pureComponents = componentsFinder.findPureComponents(componentsPath);
 
-var syncServer = new rehearseSync(compiler, syncOpts, Object.assign({ $props: props }), statics.map(s => path.join(appPath, s)));
+var syncServer = new rehearseSync(compiler, syncOpts, statics.map(s => path.join(appPath, s)));
 var devServer = new webpackDevServer(compiler, {
     hot: true,
     stats: { colors: true },
