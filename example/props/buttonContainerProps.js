@@ -3,7 +3,7 @@
  */
 const myButton = {
     title: 'do not click the blue buttons.',
-    text: 'hello worlds!',
+    text: 'hello world',
     onClick:  (evt) => {
         console.log(evt);
     }

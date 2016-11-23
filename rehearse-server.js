@@ -41,7 +41,7 @@ if (!props) {
 }
 
 //------------------------------------------
-var entryFile = webpackConfig.entry[2];
+var entryFile = webpackConfig.entry[3];
 var components = componentsFinder.find(componentsPath);
 rehearseTemplates.buildViewerPage(entryFile, components, props);
 

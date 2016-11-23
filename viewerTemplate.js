@@ -10,8 +10,9 @@ module.exports = {
         }).join(';\n');
 
         return `
+            import { AppContainer } from 'react-hot-loader';
             import React from 'react';
-            import ReactDom from 'react-dom';
+            import {render} from 'react-dom';
             import Viewer from 'rehearse/viewer';
             import ComponentFrame from 'rehearse/componentFrame';
             const allComponents = {};
@@ -25,10 +26,15 @@ module.exports = {
                 scenario: window.scenario
             };
        
-            const subView = window.isFrame?React.createElement(ComponentFrame, viewerProps):React.createElement(Viewer, viewerProps);
+            const subView = window.isFrame?<ComponentFrame {...viewerProps}/>:<Viewer {...viewerProps}/>;
+            const container = <AppContainer>{subView}</AppContainer>;
             
-            ReactDom.render(subView, document.getElementById('viewer'));
+            render(container, document.getElementById('viewer'));
 
+
+            if (module.hot&&window.isFrame) {
+                module.hot.accept();
+            }
 
             export default window.isFrame?ComponentFrame:Viewer;
             export {viewerProps}

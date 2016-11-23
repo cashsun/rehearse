@@ -35,6 +35,7 @@ var webpackConfig = {
     },
     entry: [
         'webpack/hot/only-dev-server',
+        'react-hot-loader/patch',
         path.join(workingDir, `${VIEWER}.js`),
     ].concat(additionalEntry),
     module: {
@@ -42,7 +43,7 @@ var webpackConfig = {
             {
                 test: /\.js$/,
                 exclude: /(node_modules)(?!.{1}rehearse)/,
-                loaders: ['react-hot', 'babel-loader']
+                loaders: [ 'babel-loader', 'react-hot-loader/webpack']
             },
         ].concat(additionalWebpackLoaders)
     },
