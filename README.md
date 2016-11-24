@@ -1,6 +1,6 @@
 # rehearse
 >live react components development in zen mode.
-
+![alt tag](https://travis-ci.org/cashsun/rehearse.svg?branch=master)
 [Home Page](http://cashsun.github.io/rehearse/)
 
 ![alt tag](https://raw.githubusercontent.com/cashsun/rehearse/master/demo.gif)
@@ -13,17 +13,15 @@ React live editing (a.k.a hot reload) made easy -> Let Rehearse do the compiling
 
 ★ Hot reload on props/scenario change
 
-★ Auto Refresh on functional/pure component change
-
-★ Scenario supported
+★ Support Scenarios
 
 ★ Isolated or interdependent props
 
-★ Babel React + Es6
+★ Babel Loader built in
 
 ★ Auto find all components in configured folder
 
-★ Customise addtional loaders and plugins and more
+★ Customise additional loaders and plugins and more
 
 
 
