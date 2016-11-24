@@ -1,7 +1,9 @@
 # rehearse
 >live react components development in zen mode.
-![alt tag](https://travis-ci.org/cashsun/rehearse.svg?branch=master)
+
 [Home Page](http://cashsun.github.io/rehearse/)
+
+![alt tag](https://travis-ci.org/cashsun/rehearse.svg?branch=master)
 
 ![alt tag](https://raw.githubusercontent.com/cashsun/rehearse/master/demo.gif)
 
